@@ -164,7 +164,7 @@ const Hero = () => {
                     role="dialog"
                     aria-modal="true"
                     aria-label="Search stays"
-                    className="absolute inset-x-0 bottom-0 bg-cream-50 rounded-t-3xl px-4 pt-3 pb-8 max-h-[92vh] overflow-y-auto animate-fade-in-up"
+                    className="absolute inset-x-0 bottom-0 bg-cream-50 rounded-t-3xl px-4 pt-3 pb-8 max-h-[92vh] overflow-y-auto animate-slide-up-sheet"
                 >
                     <div className="mx-auto h-1.5 w-10 rounded-full bg-cream-300 mb-5" />
 
