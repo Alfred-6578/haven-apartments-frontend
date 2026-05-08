@@ -2,8 +2,8 @@
 @source "../../src";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FDFBF7;
+  --foreground: #3D3530;  
 }
 
 @theme inline {
@@ -50,15 +50,247 @@
   --breakpoint-xsm: 385px;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
-body {
-  background: var(--background);
+body { 
+  background: var(--background);   
   color: var(--foreground);
   font-family: var(--font-body);
+}
+
+.overlay{
+  position: absolute;
+  inset: 0;
+   background: 
+    linear-gradient(
+      180deg,
+      rgba(26, 22, 20, 0.40) 0%,
+      rgba(26, 22, 20, 0.10) 25%,
+      rgba(26, 22, 20, 0.0) 50%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(26, 22, 20, 0.50) 0%,
+      rgba(26, 22, 20, 0.30) 35%,
+      rgba(26, 22, 20, 0.0) 75%
+    );  
+  pointer-events: none; 
+  height: 100vh;
+  width: 100vw;  
+}
+
+.animate-kenburns{
+  animation: kenburns 17s ease-in-out infinite;
+}
+
+.animate-marquee{
+  animation: marquee 50s linear infinite;
+}
+
+.animate-fade-in-up{
+  animation: fade-in-up 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+}
+
+.animate-hero-fade-in{
+  animation: hero-fade-in 1.2s ease-out backwards;
+}
+
+.hero-headline-reveal{
+  animation: fade-in-up 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s backwards;
+}
+
+.hero-headline-line-2-reveal{
+  animation: fade-in-up 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s backwards;
+}
+
+.hero-subtitle-reveal{
+  animation: fade-in-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.75s backwards;
+}
+
+.hero-cta-reveal{
+  animation: fade-in-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 1.05s backwards;
+}
+
+.nav-logo-reveal{
+  animation: hero-fade-in 0.6s ease-out 0s backwards;
+}
+
+.nav-mid-reveal{
+  animation: hero-fade-in 0.6s ease-out 0.15s backwards;
+}
+
+.nav-cta-reveal{
+  animation: hero-fade-in 0.6s ease-out 0.3s backwards;
+}
+
+.product-eyebrow-reveal{
+  animation: fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0s backwards;
+}
+
+.product-headline-reveal{
+  animation: fade-in-up 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s backwards;
+}
+
+.product-body-reveal{
+  animation: fade-in-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.4s backwards;
+}
+
+.product-cta-reveal{
+  animation: fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.6s backwards;
+}
+
+/* About — image-anchored rhythm */
+.about-image-reveal{
+  animation: fade-in-up 1s cubic-bezier(0.22, 0.61, 0.36, 1) 0s backwards;
+}
+.about-eyebrow-reveal{
+  animation: fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s backwards;
+}
+.about-headline-reveal{
+  animation: fade-in-up 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.4s backwards;
+}
+.about-body-reveal{
+  animation: fade-in-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.8s backwards;
+}
+.about-cta-reveal{
+  animation: fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 1.1s backwards;
+}
+
+/* Standards — same rhythm as ProductListing header */
+.standards-eyebrow-reveal{
+  animation: fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0s backwards;
+}
+.standards-headline-reveal{
+  animation: fade-in-up 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s backwards;
+}
+.standards-body-reveal{
+  animation: fade-in-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.4s backwards;
+}
+.standards-cta-reveal{
+  animation: fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.6s backwards;
+}
+
+/* Testimonial — backdrop + central card stagger */
+.testimonial-eyebrow-reveal{
+  animation: fade-in-up 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.4s backwards;
+}
+.testimonial-quote-reveal{
+  animation: fade-in-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.6s backwards;
+}
+.testimonial-avatar-reveal{
+  animation: fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.9s backwards;
+}
+.testimonial-dots-reveal{
+  animation: fade-in-up 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 1.1s backwards;
+}
+.testimonial-buttons-reveal{
+  animation: fade-in-up 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 1.2s backwards;
+}
+
+/* Cta — closing punctuation, slightly more breathing room */
+.cta-eyebrow-reveal{
+  animation: fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0s backwards;
+}
+.cta-headline-reveal{
+  animation: fade-in-up 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s backwards;
+}
+.cta-body-reveal{
+  animation: fade-in-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s backwards;
+}
+.cta-button-reveal{
+  animation: fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.8s backwards;
+}
+
+/* Footer — quick settle */
+.footer-brand-reveal{
+  animation: fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0s backwards;
+}
+.footer-newsletter-reveal{
+  animation: fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s backwards;
+}
+.footer-legal-reveal{
+  animation: fade-in-up 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.7s backwards;
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns,
+  .animate-marquee,
+  .animate-fade-in-up,
+  .animate-hero-fade-in,
+  .hero-headline-reveal,
+  .hero-headline-line-2-reveal,
+  .hero-subtitle-reveal,
+  .hero-cta-reveal,
+  .nav-logo-reveal,
+  .nav-mid-reveal,
+  .nav-cta-reveal,
+  .product-eyebrow-reveal,
+  .product-headline-reveal,
+  .product-body-reveal,
+  .product-cta-reveal,
+  .about-image-reveal,
+  .about-eyebrow-reveal,
+  .about-headline-reveal,
+  .about-body-reveal,
+  .about-cta-reveal,
+  .standards-eyebrow-reveal,
+  .standards-headline-reveal,
+  .standards-body-reveal,
+  .standards-cta-reveal,
+  .testimonial-eyebrow-reveal,
+  .testimonial-quote-reveal,
+  .testimonial-avatar-reveal,
+  .testimonial-dots-reveal,
+  .testimonial-buttons-reveal,
+  .cta-eyebrow-reveal,
+  .cta-headline-reveal,
+  .cta-body-reveal,
+  .cta-button-reveal,
+  .footer-brand-reveal,
+  .footer-newsletter-reveal,
+  .footer-legal-reveal {
+    animation: none !important;
+  }
+}
+
+@keyframes kenburns {
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.08);  
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width:768px) {
+  .animate-marquee{
+    animation: marquee 30s linear infinite;
+  }
 }
