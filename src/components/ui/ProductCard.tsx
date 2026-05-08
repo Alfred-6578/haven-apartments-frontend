@@ -24,7 +24,7 @@ interface ProductCardProps {
 const ProductCard = ({name,address,bedrooms,guestCapacity,bathrooms,price,image,tag,visible = true,index = 0}:ProductCardProps) => {
   return (
     <div
-        className={`rounded-xl bg-cream-50 group shadow-lg p-3 lg:p-4 max-h-300 overflow-hidden cursor-pointer ${visible ? '' : 'opacity-0'}`}
+        className={`rounded-xl bg-cream-50 group shadow-xl p-4 max-h-300 overflow-hidden cursor-pointer ${visible ? '' : 'opacity-0'}`}
         style={{
             animation: visible
                 ? `fade-in-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) ${700 + index * 80}ms backwards`

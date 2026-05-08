@@ -16,10 +16,16 @@ const Navbar = () => {
         } else {
            setTimeout(() => {
             setScrolled(window.scrollY > 50);
-           }, 400); 
+           }, 600); // matches dropdown's delay-100 + duration-300
         }
     }
 
+    // Mount-only: seed scrolled from current position (refresh-mid-page case)
+    useEffect(() => {
+        setScrolled(window.scrollY > 50)
+    }, [])
+
+    // Ongoing scroll listener; closure picks up fresh dropdownOpen on each re-run
     useEffect(()=>{
         const handleScroll = ()=>{
             const offset = window.scrollY
@@ -30,7 +36,6 @@ const Navbar = () => {
             }
         }
 
-        handleScroll()
         window.addEventListener('scroll',handleScroll)
         return () => window.removeEventListener('scroll',handleScroll)
     },[dropdownOpen])
@@ -59,18 +64,18 @@ const Navbar = () => {
                 
             </div>
         </div>
-        <div className={`absolute inset-0 md:hidden transition-all delay-100 duration-300 ${dropdownOpen ? 'top-19' :'-top-100'}`}>
-            <div className="flex flex-col text-l h-80 pt-3 bg-cream-50  text-ink-700 shadow rounded-b-2xl">
-                <Link className='border-b-[0.5px] border-ink-300 py-3 px-6 sm:px-8' href="/">
+        <div className={`absolute inset-0 md:hidden transition-all delay-100 duration-500 ${dropdownOpen ? 'top-19' :'-top-[100vh]'}`}>
+            <div className="flex flex-col text-l h-[100vh] pt-3 bg-cream-50  text-ink-700 shadow rounded-b-2xl">
+                <Link className='border-b-[0.5px] border-ink-300 py-5 px-6 sm:px-8' href="/">
                     Home
                 </Link>
-                <Link className='border-b-[0.5px] border-ink-300 py-3 px-6 sm:px-8' href="/about">
+                <Link className='border-b-[0.5px] border-ink-300 py-5 px-6 sm:px-8' href="/about">
                     About 
                 </Link>
-                <Link className='border-b-[0.5px] border-ink-300 py-3 px-6 sm:px-8' href="/stays">
+                <Link className='border-b-[0.5px] border-ink-300 py-5 px-6 sm:px-8' href="/stays">
                     Stays
                 </Link>
-                <Link className='py-3 px-6 sm:px-8' href="/contact">
+                <Link className='py-5 px-6 sm:px-8' href="/contact">
                     Contact
                 </Link>
 

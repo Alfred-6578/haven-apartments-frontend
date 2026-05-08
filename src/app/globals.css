@@ -227,6 +227,15 @@ body {
   to   { opacity: 1; }
 }
 
+@keyframes slide-up-sheet {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.animate-slide-up-sheet {
+  animation: slide-up-sheet 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-kenburns,
   .animate-marquee,
@@ -263,7 +272,8 @@ body {
   .cta-button-reveal,
   .footer-brand-reveal,
   .footer-newsletter-reveal,
-  .footer-legal-reveal {
+  .footer-legal-reveal,
+  .animate-slide-up-sheet {
     animation: none !important;
   }
 }
