@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { HiOutlineAdjustments } from 'react-icons/hi'
 import { FilterGroup } from '@/types/filters'
 import { IoClose } from 'react-icons/io5'
+import { useInView } from '@/hooks/useInView'
 
 
 
@@ -23,6 +24,7 @@ const FilterPills = ({filtersList, activeVibe, setActiveVibe, activeNeighborhood
     const desktopRef = useRef<HTMLDivElement>(null)
     const mobileRef = useRef<HTMLDivElement>(null)
     const filterButtonRef = useRef<HTMLButtonElement>(null)
+    const { ref: railRef, visible } = useInView<HTMLDivElement>({ threshold: 0.1 })
 
     const navByKey: Record<string, { variable: string; setter: (v: string) => void }> = {
         neighborhood: { variable: activeNeighborhood, setter: setActiveNeighborhood },
@@ -53,14 +55,20 @@ const FilterPills = ({filtersList, activeVibe, setActiveVibe, activeNeighborhood
     }, [isFilterOpen])
 
   return (
-    <div className="relative">
+    <div ref={railRef} className="relative">
         <div className='flex justify-between gap-1 relative px-3 tny:px-6 sm:px-8 lg:px-12' style={{scrollbarWidth: 'none'}}>
             <div className="flex gap-1.5 md:gap-3 overflow-x-auto text-xs" style={{scrollbarWidth: 'none'}}>
             {
                 [ ...filtersList[filtersList.length - 1].options.map(r => r.label)].map((value,i)=>(
                     <button
                         key={i}
+                        style={{
+                            animation: visible
+                                ? `fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) ${i * 40}ms backwards`
+                                : undefined,
+                        }}
                         className={`
+                            ${visible ? '' : 'opacity-0'}
                             "flex gap-1 px-2.5 py-0.5 md:py-1 rounded-xl transition-color duration-200 cursor-pointer shrink-0 flex-1"
                             ${activeVibe === value ? 'bg-ink-900 text-cream-100': 'text-ink-600 border border-ink-400/30'}
                         `}
@@ -73,7 +81,12 @@ const FilterPills = ({filtersList, activeVibe, setActiveVibe, activeNeighborhood
             </div>
             <button
                 ref={filterButtonRef}
-                className="flex gap-1 px-1.5 md:text-sm cursor-pointer xsm:px-2.5 items-center text-xs border-ink-400 rounded-xl text-ink-800 "
+                style={{
+                    animation: visible
+                        ? 'fade-in-up 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 200ms backwards'
+                        : undefined,
+                }}
+                className={`${visible ? '' : 'opacity-0'} flex gap-1 px-1.5 md:text-sm cursor-pointer xsm:px-2.5 items-center text-xs border-ink-400 rounded-xl text-ink-800 `}
                 onClick={()=> setIsFilterOpen(prev => !prev)}
            >
                 <HiOutlineAdjustments size={14} />
@@ -110,8 +123,11 @@ const FilterPills = ({filtersList, activeVibe, setActiveVibe, activeNeighborhood
                             )
                         })
                 }
-                <button onClick={ResetFilter} className="mt-6 w-full flex gap-3 items-center justify-center bg-error/90 text-cream-100 hover:bg-error py-3 rounded-full transition duration-300 font-medium">
-                    Reset Filter
+                <button
+                    onClick={ResetFilter}
+                    className="mt-4 w-full text-sm text-ink-500 hover:text-ink-900 underline-offset-4 hover:underline transition-colors"
+                >
+                    Reset filters
                 </button>
             </div>
 
@@ -134,13 +150,21 @@ const FilterPills = ({filtersList, activeVibe, setActiveVibe, activeNeighborhood
 
                     <div className="flex items-center justify-between mb-5">
                         <h2 className="text-2xl font-heading font-semibold text-ink-900">Filter stays</h2>
-                        <button
-                            onClick={() => setIsFilterOpen(false)}
-                            className="p-2 -mr-2 rounded-full hover:bg-cream-200 transition"
-                            aria-label="Close search"
-                        >
-                            <IoClose size={22} className="text-ink-700" />
-                        </button>
+                        <div className="flex items-center gap-1">
+                            <button
+                                onClick={ResetFilter}
+                                className="text-sm text-ink-500 hover:text-ink-900 underline-offset-4 hover:underline px-2 py-1 transition-colors"
+                            >
+                                Reset
+                            </button>
+                            <button
+                                onClick={() => setIsFilterOpen(false)}
+                                className="p-2 -mr-2 rounded-full hover:bg-cream-200 transition"
+                                aria-label="Close filter"
+                            >
+                                <IoClose size={22} className="text-ink-700" />
+                            </button>
+                        </div>
                     </div>
 
                     <div className="space-y-2.5">
@@ -172,8 +196,11 @@ const FilterPills = ({filtersList, activeVibe, setActiveVibe, activeNeighborhood
                         }
                     </div>
 
-                    <button onClick={ResetFilter} className="mt-6 w-full flex gap-3 items-center justify-center bg-error/90 text-cream-100 hover:bg-error py-4 rounded-full transition duration-300 font-medium">
-                        Reset Filter
+                    <button
+                        onClick={() => setIsFilterOpen(false)}
+                        className="mt-6 w-full flex gap-3 items-center justify-center bg-ink-900 text-cream-50 hover:bg-emerald-700 py-4 rounded-full transition-colors duration-300 font-medium"
+                    >
+                        Show stays
                     </button>
                 </div>
             </div>
