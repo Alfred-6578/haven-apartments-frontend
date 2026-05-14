@@ -1,11 +1,15 @@
+'use client'
 import ProductCard from '@/components/ui/ProductCard'
 import { ProductCardProps } from '@/types/properties'
+import { useInView } from '@/hooks/useInView'
 import React from 'react'
 
 const ProductListingsContainer = ({properties}:{properties:ProductCardProps[]}) => {
+  const { ref, visible } = useInView<HTMLDivElement>({ threshold: 0.05 })
+
   return (
-    <div className='px-5 tny:px-6 sm:px-8 lg:px-12 py-8'>
-        <p className="text-ink-600 text-sm mb-3">
+    <div ref={ref} className='px-5 tny:px-6 sm:px-8 lg:px-12 py-8'>
+        <p className={`text-ink-600 text-sm mb-3 ${visible ? 'stays-results-count-reveal' : 'opacity-0'}`}>
             Showing <span className="font-bold">{properties.length}</span> properties
         </p>
          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xpl:grid-cols-4 gap-8 sm:gap-5 xl:gap-8">
@@ -20,7 +24,7 @@ const ProductListingsContainer = ({properties}:{properties:ProductCardProps[]}) 
                         guestCapacity={property.guestCapacity}
                         bathrooms={property.bathrooms}
                         tag={property.tag}
-                        // visible={visible}
+                        visible={visible}
                         index={index}
                         key={index}
                     />
