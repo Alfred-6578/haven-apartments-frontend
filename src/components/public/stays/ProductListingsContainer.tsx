@@ -1,10 +1,8 @@
 import ProductCard from '@/components/ui/ProductCard'
+import { useInView } from '@/hooks/useInView'
 import { ProductCardProps } from '@/types/properties'
 import React from 'react'
 
-<<<<<<< Updated upstream
-const ProductListingsContainer = ({properties}:{properties:ProductCardProps[]}) => {
-=======
 export interface ProductListingsContainerProps {
     arrivalDate: Date | undefined
     setArrivalDate: React.Dispatch<React.SetStateAction<Date | undefined>>
@@ -29,7 +27,6 @@ const ProductListingsContainer = ({properties, arrivalDate, setArrivalDate, depa
     return `/stays/${slug}?${qs}`
   }
 
->>>>>>> Stashed changes
   return (
     <div className='px-5 tny:px-6 sm:px-8 lg:px-12 py-8'>
         <p className="text-ink-600 text-sm mb-3">
