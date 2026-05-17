@@ -18,18 +18,20 @@ interface ProductCardProps {
     tag: string;
     visible?: boolean;
     index?: number;
+    link?: string;
     // Add more properties as needed
 }
 
-const ProductCard = ({name,address,bedrooms,guestCapacity,bathrooms,price,image,tag,visible = true,index = 0}:ProductCardProps) => {
+const ProductCard = ({name,address,bedrooms,guestCapacity,bathrooms,price,image,tag,visible = true,index = 0,link}:ProductCardProps) => {
   return (
-    <div
+    <Link
         className={`rounded-xl bg-cream-50 group shadow-xl p-4 max-h-300 overflow-hidden cursor-pointer ${visible ? '' : 'opacity-0'}`}
         style={{
             animation: visible
                 ? `fade-in-up 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) ${700 + index * 80}ms backwards`
                 : undefined,
         }}
+        href={link || `/stays/${name}`}
     >
         <div className="w-full aspect-[3/2.5] vsm:aspect-[3/2] sm:aspect-[3/2.5] overflow-hidden rounded-xl">
             <Image className='rounded-xl w-full group-hover:scale-[1.07] transition-transform duration-800 h-full object-cover' src={require(`@/assets/images/properties/${image}`)} alt={name} />
@@ -50,19 +52,18 @@ const ProductCard = ({name,address,bedrooms,guestCapacity,bathrooms,price,image,
                     <span className="font-bold text-ink-900 text-lg">₦{price.toLocaleString()}</span>
                     <span className="text-sm text-ink-500">/night</span>
                 </div>
-                <Link
-                    href={`/stays/${name}`}
+                <div
                     className="group relative w-10 h-10 rounded-full bg-ink-900 hover:bg-emerald-700 flex items-center justify-center text-cream-50 overflow-hidden transition-colors"
                     aria-label={`View ${name}`}
                 >
                     <FiArrowRight className="absolute transition-transform duration-300 group-hover:translate-x-10" />
                     <FiArrowRight className="absolute transition-transform duration-300 -translate-x-10 group-hover:translate-x-0" />
-                </Link>
+                </div>
 
 
             </div>
         </div>
-    </div>
+    </Link>
   )
 }
 

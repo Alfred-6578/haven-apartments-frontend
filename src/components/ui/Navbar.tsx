@@ -1,8 +1,10 @@
 'use client'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React, { useEffect } from 'react'
 
 const Navbar = () => {
+    const pathname = usePathname()
 
     const [scrolled, setScrolled] = React.useState(false);
     const [dropdownOpen, setDropdownOpen] = React.useState(false);
@@ -39,6 +41,12 @@ const Navbar = () => {
         window.addEventListener('scroll',handleScroll)
         return () => window.removeEventListener('scroll',handleScroll)
     },[dropdownOpen])
+
+    useEffect(()=>{
+        if(pathname !== '/' && pathname !== '/about' && pathname !== '/stays' && pathname !== '/contact'){
+            setScrolled(true)
+        }
+    })
 
   return (
     <div className={`relative`}>

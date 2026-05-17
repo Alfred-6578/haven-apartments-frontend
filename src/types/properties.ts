@@ -1,4 +1,6 @@
 export interface ProductCardProps {
+  id: number
+  slug:string
   name: string
   address: string
   bedrooms: number

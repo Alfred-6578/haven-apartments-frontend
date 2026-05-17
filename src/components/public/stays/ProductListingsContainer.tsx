@@ -2,7 +2,34 @@ import ProductCard from '@/components/ui/ProductCard'
 import { ProductCardProps } from '@/types/properties'
 import React from 'react'
 
+<<<<<<< Updated upstream
 const ProductListingsContainer = ({properties}:{properties:ProductCardProps[]}) => {
+=======
+export interface ProductListingsContainerProps {
+    arrivalDate: Date | undefined
+    setArrivalDate: React.Dispatch<React.SetStateAction<Date | undefined>>
+    departureDate: Date | undefined
+    setDepartureDate: React.Dispatch<React.SetStateAction<Date | undefined>>
+    guestCount: number | undefined
+    setGuestCount: React.Dispatch<React.SetStateAction<number | undefined>>
+    properties:ProductCardProps[]
+}
+
+
+const ProductListingsContainer = ({properties, arrivalDate, setArrivalDate, departureDate, setDepartureDate, guestCount, setGuestCount}:ProductListingsContainerProps) => {
+  const { ref, visible } = useInView<HTMLDivElement>({ threshold: 0.05 })
+
+
+  const buildLink = (slug:string)=>{
+    const params = new URLSearchParams()
+    if (arrivalDate) params.set('arrival', arrivalDate.toISOString().split('T')[0])
+    if (departureDate) params.set('departure', departureDate.toISOString().split('T')[0])
+    if (guestCount) params.set('guests', guestCount.toString())
+    const qs = params.toString() ? `?${params.toString()}` : ''
+    return `/stays/${slug}?${qs}`
+  }
+
+>>>>>>> Stashed changes
   return (
     <div className='px-5 tny:px-6 sm:px-8 lg:px-12 py-8'>
         <p className="text-ink-600 text-sm mb-3">
@@ -23,6 +50,7 @@ const ProductListingsContainer = ({properties}:{properties:ProductCardProps[]}) 
                         // visible={visible}
                         index={index}
                         key={index}
+                        link={buildLink(property.slug)}
                     />
                 ))
             }
