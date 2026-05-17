@@ -10,14 +10,21 @@ import { format } from 'date-fns';
 import { IoClose } from 'react-icons/io5'
 
 
-const StaysHero = () => {
+export interface StaysHeroProps {
+    arrivalDate: Date | undefined
+    setArrivalDate: React.Dispatch<React.SetStateAction<Date | undefined>>
+    departureDate: Date | undefined
+    setDepartureDate: React.Dispatch<React.SetStateAction<Date | undefined>>
+    guestCount: number | undefined
+    setGuestCount: React.Dispatch<React.SetStateAction<number | undefined>>
+}
+
+
+const StaysHero = ({arrivalDate, setArrivalDate, departureDate, setDepartureDate, guestCount, setGuestCount}:StaysHeroProps) => {
     const [searchOpen, setSearchOpen] = useState(false);
-    const [arrivalDate, setArrivalDate] = useState<Date | undefined>()
-    const [departureDate, setDepartureDate] = useState<Date | undefined>()
     const [arrivalPickerOpen, setArrivalPickerOpen] = useState(false)
     const [departurePickerOpen, setDeparturePickerOpen] = useState(false)
     const [guestCountOpen, setGuestCountOpen] = useState(false)
-    const [guestCount, setGuestCount] = useState<number | undefined>(undefined)
     const [sheetActive, setSheetActive] = useState<'arrival' | 'departure' | 'guests' | null>(null)
     const arrivalRef = useRef<HTMLDivElement>(null)
     const departureRef = useRef<HTMLDivElement>(null)
@@ -28,9 +35,9 @@ const StaysHero = () => {
     useClickOutside(guestRef, () => setGuestCountOpen(false), guestCountOpen)
 
     const handleArrivalSelect = (date: Date | undefined) => {
-        setArrivalDate(date)
+        setArrivalDate?.(date)
         if (date && departureDate && date >= departureDate) {
-            setDepartureDate(undefined)
+            setDepartureDate?.(undefined)
         }
     }
 
@@ -120,7 +127,7 @@ const StaysHero = () => {
                         </div>
 
                         {departurePickerOpen && (
-                            <HeroDatePicker selected={departureDate} type='departure' arrivalDate={arrivalDate} onSelect={setDepartureDate} />
+                            <HeroDatePicker selected={departureDate} type='departure' arrivalDate={arrivalDate} onSelect={(date) => setDepartureDate?.(date)} />
                         )}
                     </div>
                     <div ref={guestRef} className="flex items-center py-2 px-4 lg:px-6 relative">
@@ -135,7 +142,7 @@ const StaysHero = () => {
                             <GoChevronDown size={24} />
                         </div>
                         {
-                            guestCountOpen && (
+                            guestCountOpen && setGuestCount && (
                                 <GuestPicker guestCapacity={4} setGuestCount={setGuestCount}/>
                             )
                         }
@@ -224,7 +231,7 @@ const StaysHero = () => {
                                         type="departure"
                                         arrivalDate={arrivalDate}
                                         onSelect={(d) => {
-                                            setDepartureDate(d)
+                                            setDepartureDate?.(d)
                                             if (d) setSheetActive('guests')
                                         }}
                                         inline
@@ -249,7 +256,11 @@ const StaysHero = () => {
                                     <GuestPicker
                                         guestCapacity={4}
                                         setGuestCount={(n) => {
-                                            setGuestCount(n)
+                                            if (typeof n === 'function') {
+                                                setGuestCount?.(n(guestCount))
+                                            } else {
+                                                setGuestCount?.(n)
+                                            }
                                             setSheetActive(null)
                                         }}
                                         inline

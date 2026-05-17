@@ -2,6 +2,8 @@ import { ProductCardProps } from "@/types/properties";
 
 export const properties: ProductCardProps[] = [
     {
+        id: 1,
+        slug: "sundry-house",
         name: "Sundry House",
         address: "Lekki Phase 1, Lagos",
         bedrooms: 2,
@@ -12,6 +14,8 @@ export const properties: ProductCardProps[] = [
         tag: "New",
     },
     {
+        id: 2,
+        slug: "the-eko-brief",
         name: "The Eko Brief",
         address: "Eko Atlantic, Lagos",
         bedrooms: 3,
@@ -22,6 +26,8 @@ export const properties: ProductCardProps[] = [
         tag: "City View",
     },
     {
+        id: 3,
+        slug:"marina-loft",
         name: "Marina Loft",
         address: "Victoria Island, Lagos",
         bedrooms: 1,
@@ -32,6 +38,8 @@ export const properties: ProductCardProps[] = [
         tag: "Business",
     },
     {
+        id: 4,
+        slug:"palm-and-pine",
         name: "Palm & Pine",
         address: "Banana Island, Lagos",
         bedrooms: 3,
@@ -42,6 +50,8 @@ export const properties: ProductCardProps[] = [
         tag: "Family",
     },
     {
+        id: 5,
+        slug: "six-degrees",
         name: "Six Degrees",
         address: "Ikoyi, Lagos",
         bedrooms: 1,
@@ -52,6 +62,8 @@ export const properties: ProductCardProps[] = [
         tag: "Boutique",
     },
     {
+        id: 6,
+        slug:"the-dawn-house",
         name: "The Dawn House",
         address: "Lekki Phase 2, Lagos",
         bedrooms: 2,

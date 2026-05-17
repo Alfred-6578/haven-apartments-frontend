@@ -11,6 +11,9 @@ const StaysPage = () => {
     const [activeNeighborhood, setActiveNeighborhood] = useState('All')
     const [activeGuests, setActiveGuests] = useState('Any size')
     const [activePrice, setActivePrice] = useState('Any price')
+    const [arrivalDate, setArrivalDate] = useState<Date | undefined>(undefined)
+    const [departureDate, setDepartureDate] = useState<Date | undefined>(undefined)
+    const [guestCount, setGuestCount] = useState<number | undefined>(undefined)
 
     const filteredProperties = properties.filter(property => {
         const matchesVibe = activeVibe === 'All' || property.tag === activeVibe
@@ -26,7 +29,14 @@ const StaysPage = () => {
     })
   return (
     <div className=''>
-        <StaysHero />
+        <StaysHero 
+            arrivalDate={arrivalDate}
+            setArrivalDate={setArrivalDate}
+            departureDate={departureDate}
+            setDepartureDate={setDepartureDate}
+            guestCount={guestCount}
+            setGuestCount={setGuestCount}
+        />
         <div className="mt-12 md:mt-15">
             <FilterPills 
                 filtersList={filters}
@@ -40,7 +50,15 @@ const StaysPage = () => {
                 setActivePrice={setActivePrice}
 
             />
-            <ProductListingsContainer properties={filteredProperties}/>
+            <ProductListingsContainer 
+                properties={filteredProperties}
+                arrivalDate={arrivalDate}
+                setArrivalDate={setArrivalDate}
+                departureDate={departureDate}
+                setDepartureDate={setDepartureDate}
+                guestCount={guestCount}
+                setGuestCount={setGuestCount}
+            />
         </div>
     </div>
   )
