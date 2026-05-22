@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
@@ -10,7 +10,12 @@ import {
     FiChevronDown,
     FiMenu,
     FiX,
+    FiUser,
+    FiSettings,
+    FiLogOut,
+    FiExternalLink,
 } from 'react-icons/fi'
+import { useClickOutside } from '@/hooks/useClickOutside'
 
 const navItems = [
     { label: 'Dashboard', href: '/admin', icon: FiHome },
@@ -25,12 +30,17 @@ const isActiveRoute = (href: string, pathname: string) =>
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
     const [sidebarOpen, setSidebarOpen] = useState(false)
+    const [menuOpen, setMenuOpen] = useState(false)
+    const menuRef = useRef<HTMLDivElement>(null)
+
+    useClickOutside(menuRef, () => setMenuOpen(false), menuOpen)
 
     const currentPage = navItems.find(item => isActiveRoute(item.href, pathname))
 
-    // Close drawer on route change
+    // Close drawer + dropdown on route change
     useEffect(() => {
         setSidebarOpen(false)
+        setMenuOpen(false)
     }, [pathname])
 
     return (
@@ -123,15 +133,83 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         </nav>
                     </div>
 
-                    <div className='flex items-center gap-2'>
-                        <div
-                            className='w-9 h-9 rounded-full bg-cream-100 border border-cream-300 text-ink-900 flex items-center justify-center text-sm font-medium'
-                            aria-hidden
+                    <div ref={menuRef} className='relative'>
+                        <button
+                            type='button'
+                            onClick={() => setMenuOpen(prev => !prev)}
+                            className='flex items-center gap-2 hover:bg-cream-100 rounded-full pl-1 pr-2.5 py-1 transition-colors cursor-pointer'
+                            aria-haspopup='menu'
+                            aria-expanded={menuOpen}
                         >
-                            AO
-                        </div>
-                        <span className='text-sm text-ink-900 max-md:hidden'>Adaeze O.</span>
-                        <FiChevronDown size={14} className='text-ink-500' />
+                            <div
+                                className='w-9 h-9 rounded-full bg-cream-100 border border-cream-300 text-ink-900 flex items-center justify-center text-sm font-medium'
+                                aria-hidden
+                            >
+                                AO
+                            </div>
+                            <span className='text-sm text-ink-900 max-md:hidden'>Adaeze O.</span>
+                            <FiChevronDown
+                                size={14}
+                                className={`text-ink-500 transition-transform ${menuOpen ? 'rotate-180' : ''}`}
+                            />
+                        </button>
+
+                        {menuOpen && (
+                            <div
+                                role='menu'
+                                className='absolute right-0 top-full mt-2 w-60 bg-cream-50 border border-cream-300 rounded-xl shadow-xl py-1.5 z-30 animate-fade-in-up'
+                            >
+                                <div className='px-4 py-3 border-b border-cream-300'>
+                                    <p className='text-sm font-medium text-ink-900'>Adaeze Okafor</p>
+                                    <p className='text-xs text-ink-500 mt-0.5'>adaeze@havenhomes.ng</p>
+                                </div>
+
+                                <Link
+                                    href='/admin/profile'
+                                    role='menuitem'
+                                    className='flex items-center gap-3 px-4 py-2.5 text-sm text-ink-700 hover:bg-cream-100 transition-colors'
+                                >
+                                    <FiUser size={16} className='text-ink-500' />
+                                    Profile
+                                </Link>
+                                <Link
+                                    href='/admin/settings'
+                                    role='menuitem'
+                                    className='flex items-center gap-3 px-4 py-2.5 text-sm text-ink-700 hover:bg-cream-100 transition-colors'
+                                >
+                                    <FiSettings size={16} className='text-ink-500' />
+                                    Settings
+                                </Link>
+
+                                <div className='border-t border-cream-300 mt-1 pt-1'>
+                                    <a
+                                        href='/'
+                                        target='_blank'
+                                        rel='noopener noreferrer'
+                                        role='menuitem'
+                                        onClick={() => setMenuOpen(false)}
+                                        className='flex items-center justify-between gap-3 px-4 py-2.5 text-sm text-ink-700 hover:bg-cream-100 transition-colors'
+                                    >
+                                        <span className='flex items-center gap-3'>
+                                            <FiExternalLink size={16} className='text-ink-500' />
+                                            View public site
+                                        </span>
+                                    </a>
+                                </div>
+
+                                <div className='border-t border-cream-300 mt-1 pt-1'>
+                                    <button
+                                        type='button'
+                                        role='menuitem'
+                                        onClick={() => setMenuOpen(false)}
+                                        className='w-full flex items-center gap-3 px-4 py-2.5 text-sm text-error hover:bg-error/5 transition-colors cursor-pointer'
+                                    >
+                                        <FiLogOut size={16} />
+                                        Sign out
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </header>
 
