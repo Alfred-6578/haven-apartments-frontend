@@ -17,8 +17,8 @@ const STYLES: Record<Status, { bg: string; text: string; label: string }> = {
     completed: { bg: 'bg-cream-200', text: 'text-ink-700', label: 'Completed' },
     cancelled: { bg: 'bg-error/15', text: 'text-error', label: 'Cancelled' },
     live: { bg: 'bg-emerald-100', text: 'text-emerald-900', label: 'Live' },
-    draft: { bg: 'bg-warning/15', text: 'text-warning', label: 'Draft' },
-    maintenance: { bg: 'bg-error/15', text: 'text-error', label: 'Maintenance' },
+    draft: { bg: 'bg-cream-200', text: 'text-ink-700', label: 'Draft' },
+    maintenance: { bg: 'bg-warning/15', text: 'text-warning', label: 'Maintenance' },
 }
 
 const StatusPill = ({ status }: { status: Status }) => {

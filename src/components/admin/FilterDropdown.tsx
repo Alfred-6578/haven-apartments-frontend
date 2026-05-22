@@ -14,9 +14,10 @@ interface Props {
     selected: string
     onSelect: (value: string) => void
     icon?: IconType
+    prefix?: string
 }
 
-const FilterDropdown = ({ options, selected, onSelect, icon: Icon }: Props) => {
+const FilterDropdown = ({ options, selected, onSelect, icon: Icon, prefix }: Props) => {
     const [open, setOpen] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
     useClickOutside(ref, () => setOpen(false), open)
@@ -33,7 +34,10 @@ const FilterDropdown = ({ options, selected, onSelect, icon: Icon }: Props) => {
                 aria-expanded={open}
             >
                 {Icon && <Icon size={14} className='text-ink-500' />}
-                <span>{current.label}</span>
+                <span>
+                    {prefix && <span className='text-ink-500'>{prefix}: </span>}
+                    {current.label}
+                </span>
                 <FiChevronDown
                     size={14}
                     className={`text-ink-500 transition-transform ${open ? 'rotate-180' : ''}`}
