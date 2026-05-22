@@ -1,5 +1,5 @@
 'use client'
-import { format } from 'date-fns'
+import { addDays } from 'date-fns'
 import React, { Dispatch, useState } from 'react'
 import { DateRange, DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
@@ -22,17 +22,20 @@ const HeroDatePicker = ({
 
 
     const wrapperClass = inline
-        ? "flex justify-center p-1"
-        : "absolute transition-all duration-300 top-full left-0 bg-cream-50 rounded-lg mt-4 p-5 py-6 shadow-2xl z-10"
+        ? "flex flex-col items-center p-3"
+        : "absolute transition-all duration-300 top-full left-0 bg-cream-50 rounded-lg mt-4 p-3 xsm:p-5 py-6 shadow-2xl z-10"
 
     return (
         <div className={wrapperClass}>
+            <p className='text-[11px] uppercase tracking-[0.18em] text-ink-500 font-medium mb-3 px-1'>
+                Pick your {type === 'arrival' ? 'check-in' : 'check-out'}
+            </p>
             <DayPicker
                 mode='single'
                 required={true}
                 selected={selected}
                 onSelect={onSelect}
-                disabled={type === 'arrival' ? {before: new Date()} : {before: arrivalDate ?? new Date()}}
+                disabled={type === 'arrival' ? {before: new Date()} : {before: arrivalDate ? addDays(arrivalDate, 1) : new Date()}}
                 classNames={{
                     // month: 'bg-cream-50',
                     month_caption: 'font-serif text-sm vsm:text-md md:text-xl text-ink-900 mb-4',

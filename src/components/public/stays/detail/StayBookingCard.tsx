@@ -1,6 +1,6 @@
 'use client'
 import React, { useRef, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { format } from 'date-fns'
 import {
     IoShieldCheckmarkOutline,
@@ -18,6 +18,7 @@ const CLEANING_FEE = 15000
 const SERVICE_RATE = 0.05
 
 const StayBookingCard = ({ stay }: { stay: ProductCardProps }) => {
+    const router = useRouter()
     const searchParams = useSearchParams()
 
     const [arrivalDate, setArrivalDate] = useState<Date | undefined>(() => {
@@ -47,7 +48,11 @@ const StayBookingCard = ({ stay }: { stay: ProductCardProps }) => {
     const handleArrivalSelect = (date: Date | undefined) => {
         setArrivalDate(date)
         setArrivalOpen(false)
-        if (date && departureDate && date >= departureDate) setDepartureDate(undefined)
+        const departureNowInvalid = !departureDate || (date && date >= departureDate)
+        if (departureNowInvalid) {
+            setDepartureDate(undefined)
+            if (date) setTimeout(() => setDepartureOpen(true), 80)
+        }
     }
     const handleDepartureSelect = (date: Date | undefined) => {
         setDepartureDate(date)
@@ -58,6 +63,18 @@ const StayBookingCard = ({ stay }: { stay: ProductCardProps }) => {
         arrivalDate && departureDate
             ? Math.max(0, Math.round((departureDate.getTime() - arrivalDate.getTime()) / 86400000))
             : 0
+
+    const canReserve = nights > 0 && !!guestCount
+
+    const handleReserve = () => {
+        if (!canReserve || !arrivalDate || !departureDate) return
+        const params = new URLSearchParams({
+            arrival: arrivalDate.toISOString().split('T')[0],
+            departure: departureDate.toISOString().split('T')[0],
+            guests: String(guestCount),
+        })
+        router.push(`/stays/${stay.slug}/checkout?${params.toString()}`)
+    }
     const subtotal = nights * stay.price
     const cleaningFee = nights > 0 ? CLEANING_FEE : 0
     const serviceFee = Math.round(subtotal * SERVICE_RATE)
@@ -89,7 +106,7 @@ const StayBookingCard = ({ stay }: { stay: ProductCardProps }) => {
                                 </span>
                             </button>
                             {arrivalOpen && (
-                                <div className='absolute z-30 top-full left-0'>
+                                <div className='absolute z-30 top-full left-[-20%] xsm:left-0'>
                                     <HeroDatePicker selected={arrivalDate} type='arrival' onSelect={handleArrivalSelect} />
                                 </div>
                             )}
@@ -114,7 +131,7 @@ const StayBookingCard = ({ stay }: { stay: ProductCardProps }) => {
                                 </span>
                             </button>
                             {departureOpen && (
-                                <div className='absolute z-30 top-full right-0'>
+                                <div className='absolute z-30 top-full w-full left-[-120%] xsm:left-[-100%] tny:left-[-70%] vsm:left-[-50%] sm:left-[-45px] md:left-0 lg:-left-[100%] xl:-left-[50%] 2xl:left-0'>
                                     <HeroDatePicker
                                         selected={departureDate}
                                         type='departure'
@@ -161,9 +178,14 @@ const StayBookingCard = ({ stay }: { stay: ProductCardProps }) => {
                     </p>
                 )}
 
-                <button className='group w-full flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-900 text-cream-50 font-medium py-3.5 rounded-full transition-colors cursor-pointer'>
-                    Reserve
-                    <FiArrowRight className='transition-transform group-hover:translate-x-1' />
+                <button
+                    type='button'
+                    onClick={handleReserve}
+                    disabled={!canReserve}
+                    className='group w-full flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-900 text-cream-50 font-medium py-3.5 rounded-full transition-colors cursor-pointer disabled:bg-ink-300 disabled:cursor-not-allowed disabled:hover:bg-ink-300'
+                >
+                    {canReserve ? 'Reserve' : 'Pick dates to reserve'}
+                    {canReserve && <FiArrowRight className='transition-transform group-hover:translate-x-1' />}
                 </button>
                 <p className='text-xs text-ink-500 text-center mt-3'>You won't be charged yet</p>
 

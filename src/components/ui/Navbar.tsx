@@ -48,6 +48,15 @@ const Navbar = () => {
         }
     })
 
+    // Close mobile dropdown on any route change
+    useEffect(() => {
+        setDropdownOpen(false)
+        const t = setTimeout(() => {
+            setScrolled(window.scrollY > 50)
+        }, 600)
+        return () => clearTimeout(t)
+    }, [pathname])
+
   return (
     <div className={`relative`}>
         <div className={`flex justify-between items-center px-5 tny;px-6 sm:px-8 z-5 transition-colors duration-300 z-10 relative ${scrolled ? 'bg-cream-50 py-6 text-ink-700 shadow-xl': 'bg-transparent py-8 text-cream-100'} `}>
