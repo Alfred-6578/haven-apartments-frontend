@@ -2,8 +2,8 @@
 import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { FiMoreVertical } from 'react-icons/fi'
 import StatusPill from './StatusPill'
+import PropertyActionsMenu from './PropertyActionsMenu'
 import type { AdminProperty } from '@/lib/admin-mock-data'
 
 const PropertyTableRow = ({ property }: { property: AdminProperty }) => {
@@ -55,13 +55,7 @@ const PropertyTableRow = ({ property }: { property: AdminProperty }) => {
                 <StatusPill status={property.status} />
             </td>
             <td className='py-4 px-2 md:px-4 text-right' onClick={(e) => e.stopPropagation()}>
-                <button
-                    type='button'
-                    className='text-ink-500 hover:text-ink-900 hover:bg-cream-200 rounded-full w-8 h-8 flex items-center justify-center transition-colors cursor-pointer'
-                    aria-label={`More options for ${property.name}`}
-                >
-                    <FiMoreVertical size={18} />
-                </button>
+                <PropertyActionsMenu property={property} />
             </td>
         </tr>
     )

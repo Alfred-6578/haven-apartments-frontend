@@ -1,8 +1,8 @@
 'use client'
 import React from 'react'
 import Image from 'next/image'
-import { FiMoreVertical } from 'react-icons/fi'
 import StatusPill from './StatusPill'
+import PropertyActionsMenu from './PropertyActionsMenu'
 import type { AdminProperty } from '@/lib/admin-mock-data'
 
 const PropertyPerformanceRow = ({ property }: { property: AdminProperty }) => {
@@ -42,13 +42,7 @@ const PropertyPerformanceRow = ({ property }: { property: AdminProperty }) => {
                 <StatusPill status={property.status} />
             </td>
             <td className='py-4 px-2 md:px-4 text-right'>
-                <button
-                    type='button'
-                    className='text-ink-500 hover:text-ink-900 p-1 transition-colors cursor-pointer'
-                    aria-label={`More options for ${property.name}`}
-                >
-                    <FiMoreVertical size={18} />
-                </button>
+                <PropertyActionsMenu property={property} />
             </td>
         </tr>
     )

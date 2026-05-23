@@ -7,22 +7,27 @@ import {
     FiEdit2,
     FiCopy,
     FiCheckCircle,
-    FiXCircle,
+    FiExternalLink,
+    FiTrash2,
 } from 'react-icons/fi'
 import { useClickOutside } from '@/hooks/useClickOutside'
-import type { Booking } from '@/lib/admin-mock-data'
-import EditBookingModal from './EditBookingModal'
-import CancelBookingModal from './CancelBookingModal'
+import type { AdminProperty } from '@/lib/admin-mock-data'
+import EditPropertyModal from './EditPropertyModal'
 
-const MENU_WIDTH = 208 // w-52
-const MENU_HEIGHT_EST = 220 // approx menu height for flip calc
+const MENU_WIDTH = 224 // w-56
+const MENU_HEIGHT_EST = 280
 
-const BookingActionsMenu = ({ booking }: { booking: Booking }) => {
+const statusLabel: Record<AdminProperty['status'], string> = {
+    live: 'Set live',
+    draft: 'Set as draft',
+    maintenance: 'Set maintenance',
+}
+
+const PropertyActionsMenu = ({ property }: { property: AdminProperty }) => {
     const router = useRouter()
     const [open, setOpen] = useState(false)
     const [copied, setCopied] = useState(false)
     const [editOpen, setEditOpen] = useState(false)
-    const [cancelOpen, setCancelOpen] = useState(false)
     const [coords, setCoords] = useState<{ top: number; left: number; flipUp: boolean }>({
         top: 0,
         left: 0,
@@ -68,7 +73,7 @@ const BookingActionsMenu = ({ booking }: { booking: Booking }) => {
 
     const view = () => {
         close()
-        router.push(`/admin/bookings/${booking.id}`)
+        router.push(`/admin/properties/${property.id}`)
     }
 
     const edit = () => {
@@ -78,7 +83,7 @@ const BookingActionsMenu = ({ booking }: { booking: Booking }) => {
 
     const copyId = async () => {
         try {
-            await navigator.clipboard.writeText(booking.id)
+            await navigator.clipboard.writeText(property.id)
             setCopied(true)
             setTimeout(() => {
                 setCopied(false)
@@ -89,12 +94,33 @@ const BookingActionsMenu = ({ booking }: { booking: Booking }) => {
         }
     }
 
-    const cancel = () => {
+    const viewPublic = () => {
+        const slug = property.id.replace(/^prop-/, '')
+        window.open(`/stays/${slug}`, '_blank', 'noopener,noreferrer')
         close()
-        setCancelOpen(true)
     }
 
-    const isPast = booking.status === 'completed' || booking.status === 'cancelled'
+    const setStatus = (next: AdminProperty['status']) => {
+        // Frontend stub — wire to API later.
+        // eslint-disable-next-line no-console
+        console.log('[stub] set property status', property.id, '→', next)
+        close()
+    }
+
+    const remove = () => {
+        const ok = window.confirm(
+            `Delete property "${property.name}"? Existing bookings will be preserved but this listing will be removed.`,
+        )
+        if (ok) {
+            // eslint-disable-next-line no-console
+            console.log('[stub] delete property', property.id)
+        }
+        close()
+    }
+
+    const otherStatuses = (['live', 'draft', 'maintenance'] as const).filter(
+        (s) => s !== property.status,
+    )
 
     return (
         <>
@@ -105,7 +131,7 @@ const BookingActionsMenu = ({ booking }: { booking: Booking }) => {
                 className='text-ink-500 hover:text-ink-900 hover:bg-cream-200 rounded-full w-8 h-8 flex items-center justify-center transition-colors cursor-pointer'
                 aria-haspopup='menu'
                 aria-expanded={open}
-                aria-label={`Actions for ${booking.id}`}
+                aria-label={`Actions for ${property.name}`}
             >
                 <FiMoreVertical size={18} />
             </button>
@@ -138,7 +164,7 @@ const BookingActionsMenu = ({ booking }: { booking: Booking }) => {
                         className='w-full flex items-center gap-3 px-4 py-2 text-sm text-ink-700 hover:bg-cream-100 transition-colors cursor-pointer'
                     >
                         <FiEdit2 size={15} className='text-ink-500' />
-                        Edit booking
+                        Edit property
                     </button>
                     <button
                         type='button'
@@ -151,37 +177,57 @@ const BookingActionsMenu = ({ booking }: { booking: Booking }) => {
                         ) : (
                             <FiCopy size={15} className='text-ink-500' />
                         )}
-                        {copied ? 'Copied!' : 'Copy booking ID'}
+                        {copied ? 'Copied!' : 'Copy property ID'}
+                    </button>
+                    <button
+                        type='button'
+                        role='menuitem'
+                        onClick={viewPublic}
+                        className='w-full flex items-center gap-3 px-4 py-2 text-sm text-ink-700 hover:bg-cream-100 transition-colors cursor-pointer'
+                    >
+                        <FiExternalLink size={15} className='text-ink-500' />
+                        View on site
                     </button>
 
-                    {!isPast && (
-                        <div className='border-t border-cream-300 mt-1 pt-1'>
+                    <div className='border-t border-cream-300 mt-1 pt-1'>
+                        <p className='px-4 pt-1 pb-1 text-[10px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
+                            Status
+                        </p>
+                        {otherStatuses.map((s) => (
                             <button
+                                key={s}
                                 type='button'
                                 role='menuitem'
-                                onClick={cancel}
-                                className='w-full flex items-center gap-3 px-4 py-2 text-sm text-error hover:bg-error/5 transition-colors cursor-pointer'
+                                onClick={() => setStatus(s)}
+                                className='w-full flex items-center gap-3 px-4 py-2 text-sm text-ink-700 hover:bg-cream-100 transition-colors cursor-pointer'
                             >
-                                <FiXCircle size={15} />
-                                Cancel booking
+                                <span className='w-[15px]' aria-hidden />
+                                {statusLabel[s]}
                             </button>
-                        </div>
-                    )}
+                        ))}
+                    </div>
+
+                    <div className='border-t border-cream-300 mt-1 pt-1'>
+                        <button
+                            type='button'
+                            role='menuitem'
+                            onClick={remove}
+                            className='w-full flex items-center gap-3 px-4 py-2 text-sm text-error hover:bg-error/5 transition-colors cursor-pointer'
+                        >
+                            <FiTrash2 size={15} />
+                            Delete property
+                        </button>
+                    </div>
                 </div>
             )}
 
-            <EditBookingModal
-                booking={editOpen ? booking : null}
+            <EditPropertyModal
+                property={editOpen ? property : null}
                 isOpen={editOpen}
                 onClose={() => setEditOpen(false)}
-            />
-            <CancelBookingModal
-                booking={cancelOpen ? booking : null}
-                isOpen={cancelOpen}
-                onClose={() => setCancelOpen(false)}
             />
         </>
     )
 }
 
-export default BookingActionsMenu
+export default PropertyActionsMenu

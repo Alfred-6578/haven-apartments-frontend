@@ -27,6 +27,11 @@ const navItems = [
 const isActiveRoute = (href: string, pathname: string) =>
     href === '/admin' ? pathname === '/admin' : pathname.startsWith(href)
 
+const extraBreadcrumbLabels: Record<string, string> = {
+    '/admin/profile': 'Profile',
+    '/admin/settings': 'Settings',
+}
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
     const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -36,6 +41,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     useClickOutside(menuRef, () => setMenuOpen(false), menuOpen)
 
     const currentPage = navItems.find(item => isActiveRoute(item.href, pathname))
+    const breadcrumbLabel =
+        currentPage?.label ?? extraBreadcrumbLabels[pathname] ?? 'Dashboard'
 
     // Close drawer + dropdown on route change
     useEffect(() => {
@@ -128,7 +135,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                             <span className='text-ink-500'>Admin</span>
                             <span className='text-ink-300 mx-2'>/</span>
                             <span className='text-ink-900 font-medium'>
-                                {currentPage?.label ?? 'Dashboard'}
+                                {breadcrumbLabel}
                             </span>
                         </nav>
                     </div>
