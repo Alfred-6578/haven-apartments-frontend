@@ -196,7 +196,7 @@ export default function AdminBookingsPage() {
                     ))}
                 </div>
 
-                <div className='flex gap-2 items-center ml-auto'>
+                <div className='flex flex-wrap gap-2 items-center md:ml-auto'>
                     <FilterDropdown
                         options={propertyOptions}
                         selected={propertyFilter}

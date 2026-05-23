@@ -135,25 +135,25 @@ export default function AdminDashboardPage() {
                 </header>
                 <div className='bg-cream-50 border border-cream-300 rounded-xl overflow-hidden'>
                     <div className='overflow-x-auto'>
-                        <table className='w-full text-sm min-w-[760px]'>
+                        <table className='w-full text-sm'>
                             <thead>
                                 <tr className='bg-cream-100 border-b border-cream-300'>
-                                    <th className='text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-700 font-medium'>
+                                    <th className='text-left py-3 px-2 md:px-4 text-[11px] uppercase tracking-[0.12em] text-ink-700 font-medium'>
                                         Property
                                     </th>
-                                    <th className='text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-700 font-medium'>
+                                    <th className='max-md:hidden text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-700 font-medium'>
                                         Bookings
                                     </th>
-                                    <th className='text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-700 font-medium'>
+                                    <th className='text-left py-3 px-2 md:px-4 text-[11px] uppercase tracking-[0.12em] text-ink-700 font-medium'>
                                         Revenue
                                     </th>
-                                    <th className='text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-700 font-medium'>
+                                    <th className='max-md:hidden text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-700 font-medium'>
                                         Occupancy
                                     </th>
-                                    <th className='text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-700 font-medium'>
+                                    <th className='text-left py-3 px-2 md:px-4 text-[11px] uppercase tracking-[0.12em] text-ink-700 font-medium'>
                                         Status
                                     </th>
-                                    <th className='py-3 px-4'>
+                                    <th className='py-3 px-2 md:px-4'>
                                         <span className='sr-only'>Actions</span>
                                     </th>
                                 </tr>

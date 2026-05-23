@@ -14,7 +14,7 @@ const PropertyTableRow = ({ property }: { property: AdminProperty }) => {
             className='border-b border-cream-300 last:border-b-0 hover:bg-cream-100 transition-colors cursor-pointer'
             onClick={() => router.push(`/admin/properties/${property.id}`)}
         >
-            <td className='py-4 px-4'>
+            <td className='py-4 px-2 md:px-4'>
                 <div className='flex items-center gap-3'>
                     <div className='relative w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-cream-200'>
                         <Image
@@ -28,14 +28,14 @@ const PropertyTableRow = ({ property }: { property: AdminProperty }) => {
                     <p className='text-ink-900 font-medium leading-tight'>{property.name}</p>
                 </div>
             </td>
-            <td className='py-4 px-4 text-ink-700'>{property.neighborhood}</td>
-            <td className='py-4 px-4 text-ink-700 text-sm whitespace-nowrap'>
+            <td className='max-md:hidden py-4 px-4 text-ink-700'>{property.neighborhood}</td>
+            <td className='max-md:hidden py-4 px-4 text-ink-700 text-sm whitespace-nowrap'>
                 {property.bedrooms}BR · {property.bathrooms} bath · sleeps {property.guestCapacity}
             </td>
-            <td className='py-4 px-4 text-ink-900 tabular-nums whitespace-nowrap'>
+            <td className='py-4 px-2 md:px-4 text-ink-900 tabular-nums whitespace-nowrap'>
                 ₦{property.pricePerNight.toLocaleString()}
             </td>
-            <td className='py-4 px-4 min-w-[160px]'>
+            <td className='max-md:hidden py-4 px-4 min-w-[160px]'>
                 <div className='flex items-center gap-3'>
                     <div className='flex-1 h-1 bg-cream-300 rounded-full overflow-hidden'>
                         <div
@@ -48,13 +48,13 @@ const PropertyTableRow = ({ property }: { property: AdminProperty }) => {
                     </span>
                 </div>
             </td>
-            <td className='py-4 px-4 text-ink-900 tabular-nums whitespace-nowrap'>
+            <td className='max-md:hidden py-4 px-4 text-ink-900 tabular-nums whitespace-nowrap'>
                 ₦{property.totalRevenue.toLocaleString()}
             </td>
-            <td className='py-4 px-4'>
+            <td className='py-4 px-2 md:px-4'>
                 <StatusPill status={property.status} />
             </td>
-            <td className='py-4 px-4 text-right' onClick={(e) => e.stopPropagation()}>
+            <td className='py-4 px-2 md:px-4 text-right' onClick={(e) => e.stopPropagation()}>
                 <button
                     type='button'
                     className='text-ink-500 hover:text-ink-900 hover:bg-cream-200 rounded-full w-8 h-8 flex items-center justify-center transition-colors cursor-pointer'

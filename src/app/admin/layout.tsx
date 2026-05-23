@@ -44,7 +44,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }, [pathname])
 
     return (
-        <div className='min-h-screen bg-cream-50'>
+        <div className='min-h-screen bg-cream-50 w-screen overflow-hidden'>
             {/* Sidebar — fixed on desktop, drawer on mobile */}
             <aside
                 className={`fixed inset-y-0 left-0 z-40 w-60 bg-cream-100 border-r border-cream-300 transform transition-transform duration-300 ${
@@ -112,7 +112,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             )}
 
             {/* Main content area */}
-            <div className='md:ml-60 flex flex-col min-h-screen'>
+            <div className='md:ml-60 flex flex-col min-h-screen min-w-0'>
                 {/* Top bar */}
                 <header className='sticky top-0 z-20 h-16 bg-cream-50 border-b border-cream-300 flex items-center justify-between px-5 md:px-8'>
                     <div className='flex items-center gap-3'>
@@ -213,7 +213,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     </div>
                 </header>
 
-                <main className='flex-1 p-5 md:p-8'>{children}</main>
+                <main className='flex-1 min-w-0 p-5 md:p-8'>{children}</main>
             </div>
         </div>
     )

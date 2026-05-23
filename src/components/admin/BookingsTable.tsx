@@ -28,6 +28,14 @@ const relativeCheckIn = (date: Date) => {
     return distance
 }
 
+const statusDotColor: Record<Booking['status'], string> = {
+    pending: 'bg-warning',
+    confirmed: 'bg-emerald-700',
+    'checked-in': 'bg-emerald-500',
+    completed: 'bg-ink-400',
+    cancelled: 'bg-error',
+}
+
 interface Props {
     bookings: Booking[]
     selectedIds: Set<string>
@@ -42,10 +50,10 @@ const BookingsTable = ({ bookings, selectedIds, onToggleSelect, onToggleSelectAl
     return (
         <div className='bg-cream-50 border border-cream-300 rounded-xl overflow-hidden'>
             <div className='overflow-x-auto'>
-                <table className='w-full text-sm min-w-[1000px]'>
+                <table className='w-full text-sm'>
                     <thead>
                         <tr className='bg-cream-100 border-b border-cream-300'>
-                            <th className='py-3 px-4 w-10'>
+                            <th className='max-md:hidden py-3 px-4 w-10'>
                                 <input
                                     type='checkbox'
                                     checked={allSelected}
@@ -54,28 +62,28 @@ const BookingsTable = ({ bookings, selectedIds, onToggleSelect, onToggleSelectAl
                                     aria-label='Select all'
                                 />
                             </th>
-                            <th className='text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
+                            <th className='max-md:hidden text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
                                 Booking
                             </th>
-                            <th className='text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
+                            <th className='text-left py-3 px-3 md:px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
                                 Guest
                             </th>
-                            <th className='text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
+                            <th className='max-md:hidden text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
                                 Property
                             </th>
-                            <th className='text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
+                            <th className='max-md:hidden text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
                                 Check-in
                             </th>
-                            <th className='text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
+                            <th className='max-md:hidden text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
                                 Nights
                             </th>
-                            <th className='text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
+                            <th className='text-right md:text-left py-3 px-3 md:px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
                                 Amount
                             </th>
-                            <th className='text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
+                            <th className='max-md:hidden text-left py-3 px-4 text-[11px] uppercase tracking-[0.12em] text-ink-500 font-medium'>
                                 Status
                             </th>
-                            <th className='py-3 px-4 w-10'>
+                            <th className='py-3 px-3 md:px-4 w-10'>
                                 <span className='sr-only'>Actions</span>
                             </th>
                         </tr>
@@ -87,7 +95,7 @@ const BookingsTable = ({ bookings, selectedIds, onToggleSelect, onToggleSelectAl
                                 className='border-b border-cream-300 last:border-b-0 hover:bg-cream-100 transition-colors cursor-pointer'
                                 onClick={() => router.push(`/admin/bookings/${b.id}`)}
                             >
-                                <td className='py-4 px-4' onClick={(e) => e.stopPropagation()}>
+                                <td className='max-md:hidden py-4 px-4' onClick={(e) => e.stopPropagation()}>
                                     <input
                                         type='checkbox'
                                         checked={selectedIds.has(b.id)}
@@ -96,23 +104,34 @@ const BookingsTable = ({ bookings, selectedIds, onToggleSelect, onToggleSelectAl
                                         aria-label={`Select booking ${b.id}`}
                                     />
                                 </td>
-                                <td className='py-4 px-4'>
+                                <td className='max-md:hidden py-4 px-4'>
                                     <span className='font-mono text-xs text-ink-500'>{b.id}</span>
                                 </td>
-                                <td className='py-4 px-4'>
-                                    <div className='flex items-center gap-3'>
+                                <td className='py-4 px-3 md:px-4'>
+                                    <div className='flex items-center gap-2 md:gap-3'>
                                         <div className='w-9 h-9 rounded-full bg-cream-200 border border-cream-300 text-ink-900 flex items-center justify-center text-xs font-medium shrink-0'>
                                             {initialsOf(b.guestName)}
                                         </div>
                                         <div className='min-w-0'>
-                                            <p className='text-ink-900 font-medium leading-tight truncate'>
-                                                {b.guestName}
+                                            <div className='flex items-center gap-1.5'>
+                                                <span
+                                                    className={`md:hidden inline-block w-1.5 h-1.5 rounded-full shrink-0 ${statusDotColor[b.status]}`}
+                                                    aria-label={`Status: ${b.status}`}
+                                                />
+                                                <p className='text-ink-900 font-medium leading-tight truncate'>
+                                                    {b.guestName}
+                                                </p>
+                                            </div>
+                                            <p className='text-xs text-ink-500 truncate md:hidden'>
+                                                {format(b.checkIn, 'MMM d')} · {b.nights}n
                                             </p>
-                                            <p className='text-xs text-ink-500 truncate'>{b.guestEmail}</p>
+                                            <p className='text-xs text-ink-500 truncate max-md:hidden'>
+                                                {b.guestEmail}
+                                            </p>
                                         </div>
                                     </div>
                                 </td>
-                                <td className='py-4 px-4'>
+                                <td className='max-md:hidden py-4 px-4'>
                                     <div className='flex items-center gap-3'>
                                         <div className='relative w-10 h-10 rounded-lg overflow-hidden shrink-0 bg-cream-200'>
                                             <Image
@@ -131,18 +150,18 @@ const BookingsTable = ({ bookings, selectedIds, onToggleSelect, onToggleSelectAl
                                         </div>
                                     </div>
                                 </td>
-                                <td className='py-4 px-4'>
+                                <td className='max-md:hidden py-4 px-4 whitespace-nowrap'>
                                     <p className='text-ink-900'>{format(b.checkIn, 'MMM d, yyyy')}</p>
                                     <p className='text-xs text-ink-500'>{relativeCheckIn(b.checkIn)}</p>
                                 </td>
-                                <td className='py-4 px-4 text-ink-900 tabular-nums'>{b.nights}</td>
-                                <td className='py-4 px-4 text-ink-900 font-medium tabular-nums'>
+                                <td className='max-md:hidden py-4 px-4 text-ink-900 tabular-nums'>{b.nights}</td>
+                                <td className='py-4 px-3 md:px-4 text-right md:text-left text-ink-900 font-medium tabular-nums whitespace-nowrap'>
                                     ₦{b.totalAmount.toLocaleString()}
                                 </td>
-                                <td className='py-4 px-4'>
+                                <td className='max-md:hidden py-4 px-4'>
                                     <StatusPill status={b.status} />
                                 </td>
-                                <td className='py-4 px-4 text-right' onClick={(e) => e.stopPropagation()}>
+                                <td className='py-4 px-3 md:px-4 text-right' onClick={(e) => e.stopPropagation()}>
                                     <BookingActionsMenu booking={b} />
                                 </td>
                             </tr>
