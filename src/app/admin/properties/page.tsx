@@ -104,7 +104,9 @@ export default function AdminPropertiesPage() {
                     </p>
                 </div>
                 <div className='flex items-center gap-3'>
-                    <ViewToggle view={view} onChange={setView} />
+                    <div className='max-md:hidden'>
+                        <ViewToggle view={view} onChange={setView} />
+                    </div>
                     <button
                         type='button'
                         onClick={() => setAddOpen(true)}
@@ -179,7 +181,15 @@ export default function AdminPropertiesPage() {
                         ))}
                     </div>
                 ) : (
-                    <div className='bg-cream-50 border border-cream-300 rounded-xl overflow-hidden'>
+                    <>
+                        {/* Mobile: cards (list view falls back to cards below md) */}
+                        <div className='md:hidden grid grid-cols-1 sm:grid-cols-2 gap-4'>
+                            {filteredProperties.map(p => (
+                                <PropertyGridCard key={p.id} property={p} />
+                            ))}
+                        </div>
+                        {/* Desktop: table */}
+                        <div className='max-md:hidden bg-cream-50 border border-cream-300 rounded-xl overflow-hidden'>
                         <div className='overflow-x-auto'>
                             <table className='w-full text-sm'>
                                 <thead>
@@ -217,7 +227,8 @@ export default function AdminPropertiesPage() {
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                        </div>
+                    </>
                 )}
             </div>
 

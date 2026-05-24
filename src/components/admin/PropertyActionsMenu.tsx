@@ -8,9 +8,10 @@ import {
     FiCopy,
     FiCheckCircle,
     FiExternalLink,
-    FiTrash2,
+    FiArchive,
 } from 'react-icons/fi'
 import { useClickOutside } from '@/hooks/useClickOutside'
+import { useEscapeKey } from '@/hooks/useEscapeKey'
 import type { AdminProperty } from '@/lib/admin-mock-data'
 import EditPropertyModal from './EditPropertyModal'
 
@@ -36,6 +37,7 @@ const PropertyActionsMenu = ({ property }: { property: AdminProperty }) => {
     const buttonRef = useRef<HTMLButtonElement>(null)
     const menuRef = useRef<HTMLDivElement>(null)
     useClickOutside(menuRef, () => setOpen(false), open)
+    useEscapeKey(open, () => setOpen(false))
 
     const updateCoords = () => {
         if (!buttonRef.current) return
@@ -107,13 +109,20 @@ const PropertyActionsMenu = ({ property }: { property: AdminProperty }) => {
         close()
     }
 
-    const remove = () => {
+    const duplicate = () => {
+        // Frontend stub — wire to API later.
+        // eslint-disable-next-line no-console
+        console.log('[stub] duplicate property', property.id)
+        close()
+    }
+
+    const archive = () => {
         const ok = window.confirm(
-            `Delete property "${property.name}"? Existing bookings will be preserved but this listing will be removed.`,
+            `Archive "${property.name}"? Existing bookings stay intact, but the listing won't appear in your active properties.`,
         )
         if (ok) {
             // eslint-disable-next-line no-console
-            console.log('[stub] delete property', property.id)
+            console.log('[stub] archive property', property.id)
         }
         close()
     }
@@ -132,6 +141,7 @@ const PropertyActionsMenu = ({ property }: { property: AdminProperty }) => {
                 aria-haspopup='menu'
                 aria-expanded={open}
                 aria-label={`Actions for ${property.name}`}
+                title='More actions'
             >
                 <FiMoreVertical size={18} />
             </button>
@@ -165,6 +175,15 @@ const PropertyActionsMenu = ({ property }: { property: AdminProperty }) => {
                     >
                         <FiEdit2 size={15} className='text-ink-500' />
                         Edit property
+                    </button>
+                    <button
+                        type='button'
+                        role='menuitem'
+                        onClick={duplicate}
+                        className='w-full flex items-center gap-3 px-4 py-2 text-sm text-ink-700 hover:bg-cream-100 transition-colors cursor-pointer'
+                    >
+                        <FiCopy size={15} className='text-ink-500' />
+                        Duplicate
                     </button>
                     <button
                         type='button'
@@ -211,11 +230,11 @@ const PropertyActionsMenu = ({ property }: { property: AdminProperty }) => {
                         <button
                             type='button'
                             role='menuitem'
-                            onClick={remove}
+                            onClick={archive}
                             className='w-full flex items-center gap-3 px-4 py-2 text-sm text-error hover:bg-error/5 transition-colors cursor-pointer'
                         >
-                            <FiTrash2 size={15} />
-                            Delete property
+                            <FiArchive size={15} />
+                            Archive
                         </button>
                     </div>
                 </div>

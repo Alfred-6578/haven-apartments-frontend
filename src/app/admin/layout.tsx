@@ -16,6 +16,7 @@ import {
     FiExternalLink,
 } from 'react-icons/fi'
 import { useClickOutside } from '@/hooks/useClickOutside'
+import { useEscapeKey } from '@/hooks/useEscapeKey'
 
 const navItems = [
     { label: 'Dashboard', href: '/admin', icon: FiHome },
@@ -39,6 +40,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const menuRef = useRef<HTMLDivElement>(null)
 
     useClickOutside(menuRef, () => setMenuOpen(false), menuOpen)
+    useEscapeKey(menuOpen, () => setMenuOpen(false))
+    useEscapeKey(sidebarOpen, () => setSidebarOpen(false))
 
     const currentPage = navItems.find(item => isActiveRoute(item.href, pathname))
     const breadcrumbLabel =
@@ -60,14 +63,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             >
                 <div className='flex flex-col h-full'>
                     <div className='flex items-center justify-between px-6 py-5 border-b border-cream-300'>
-                        <Link href='/admin' className='font-heading text-xl text-ink-900'>
+                        <Link
+                            href='/admin'
+                            className='font-heading text-xl text-ink-900 inline-flex items-center gap-2'
+                        >
                             Haven Homes
+                            <span className='text-[10px] uppercase tracking-[0.1em] bg-cream-200 text-ink-700 rounded-full px-2 py-0.5 font-body font-medium'>
+                                Beta
+                            </span>
                         </Link>
                         <button
                             type='button'
                             onClick={() => setSidebarOpen(false)}
                             className='md:hidden text-ink-500 hover:text-ink-900 transition-colors'
                             aria-label='Close menu'
+                            title='Close menu'
                         >
                             <FiX size={20} />
                         </button>
@@ -128,6 +138,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                             onClick={() => setSidebarOpen(true)}
                             className='md:hidden text-ink-700 hover:text-ink-900 transition-colors'
                             aria-label='Open menu'
+                            title='Open menu'
                         >
                             <FiMenu size={20} />
                         </button>
@@ -220,7 +231,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     </div>
                 </header>
 
-                <main className='flex-1 min-w-0 p-5 md:p-8'>{children}</main>
+                <main className='flex-1 min-w-0 p-5 md:p-8'>
+                    <div
+                        key={pathname}
+                        style={{ animation: 'hero-fade-in 0.3s ease-out backwards' }}
+                    >
+                        {children}
+                    </div>
+                </main>
             </div>
         </div>
     )

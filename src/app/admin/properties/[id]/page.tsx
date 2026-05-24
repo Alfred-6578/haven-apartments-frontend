@@ -17,6 +17,7 @@ import {
     FiUsers,
 } from 'react-icons/fi'
 import { useClickOutside } from '@/hooks/useClickOutside'
+import { useEscapeKey } from '@/hooks/useEscapeKey'
 import { adminBookings, adminProperties, type AdminProperty } from '@/lib/admin-mock-data'
 import StatusPill from '@/components/admin/StatusPill'
 
@@ -41,6 +42,7 @@ export default function AdminPropertyDetailPage() {
     const [statusMenuOpen, setStatusMenuOpen] = useState(false)
     const statusMenuRef = React.useRef<HTMLDivElement>(null)
     useClickOutside(statusMenuRef, () => setStatusMenuOpen(false), statusMenuOpen)
+    useEscapeKey(statusMenuOpen, () => setStatusMenuOpen(false))
 
     const property = adminProperties.find((p) => p.id === id)
 

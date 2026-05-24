@@ -6,6 +6,7 @@ import StatCard from '@/components/admin/StatCard'
 import UpcomingCheckinRow from '@/components/admin/UpcomingCheckinRow'
 import ActivityFeedItem from '@/components/admin/ActivityFeedItem'
 import PropertyPerformanceRow from '@/components/admin/PropertyPerformanceRow'
+import PropertyPerformanceMobileCard from '@/components/admin/PropertyPerformanceMobileCard'
 
 const OPERATOR_NAME = 'Adaeze'
 
@@ -133,7 +134,14 @@ export default function AdminDashboardPage() {
                     <h2 className='font-heading text-[22px] text-ink-900'>Properties at a glance</h2>
                     <p className='text-sm text-ink-500'>This month's performance</p>
                 </header>
-                <div className='bg-cream-50 border border-cream-300 rounded-xl overflow-hidden'>
+                {/* Mobile: cards */}
+                <div className='md:hidden space-y-3'>
+                    {adminProperties.map(p => (
+                        <PropertyPerformanceMobileCard key={p.id} property={p} />
+                    ))}
+                </div>
+                {/* Desktop: table */}
+                <div className='max-md:hidden bg-cream-50 border border-cream-300 rounded-xl overflow-hidden'>
                     <div className='overflow-x-auto'>
                         <table className='w-full text-sm'>
                             <thead>

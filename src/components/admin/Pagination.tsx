@@ -42,6 +42,7 @@ const Pagination = ({ currentPage, totalPages, pageSize, totalItems, onPageChang
                     disabled={currentPage === 1}
                     className='w-9 h-9 flex items-center justify-center rounded-lg border border-cream-300 text-ink-700 hover:bg-cream-200 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent'
                     aria-label='Previous page'
+                    title='Previous page'
                 >
                     <FiChevronLeft size={16} />
                 </button>
@@ -74,6 +75,7 @@ const Pagination = ({ currentPage, totalPages, pageSize, totalItems, onPageChang
                     disabled={currentPage === totalPages || totalPages === 0}
                     className='w-9 h-9 flex items-center justify-center rounded-lg border border-cream-300 text-ink-700 hover:bg-cream-200 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent'
                     aria-label='Next page'
+                    title='Next page'
                 >
                     <FiChevronRight size={16} />
                 </button>

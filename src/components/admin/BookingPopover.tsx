@@ -51,6 +51,7 @@ const BookingPopover = ({ booking, position, onClose, onViewDetails }: Props) =>
                     onClick={onClose}
                     className='absolute top-3 right-3 text-ink-500 hover:text-ink-900 transition-colors cursor-pointer'
                     aria-label='Close'
+                    title='Close'
                 >
                     <FiX size={16} />
                 </button>

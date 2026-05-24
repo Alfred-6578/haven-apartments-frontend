@@ -26,6 +26,7 @@ const ViewToggle = ({ view, onChange }: Props) => {
                 onClick={() => onChange('grid')}
                 className={btnClass(view === 'grid')}
                 aria-label='Grid view'
+                title='Grid view'
                 aria-pressed={view === 'grid'}
             >
                 <FiGrid size={14} />
@@ -35,6 +36,7 @@ const ViewToggle = ({ view, onChange }: Props) => {
                 onClick={() => onChange('list')}
                 className={btnClass(view === 'list')}
                 aria-label='List view'
+                title='List view'
                 aria-pressed={view === 'list'}
             >
                 <FiList size={14} />

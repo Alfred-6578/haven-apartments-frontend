@@ -7,9 +7,11 @@ import {
     FiEdit2,
     FiCopy,
     FiCheckCircle,
+    FiMessageSquare,
     FiXCircle,
 } from 'react-icons/fi'
 import { useClickOutside } from '@/hooks/useClickOutside'
+import { useEscapeKey } from '@/hooks/useEscapeKey'
 import type { Booking } from '@/lib/admin-mock-data'
 import EditBookingModal from './EditBookingModal'
 import CancelBookingModal from './CancelBookingModal'
@@ -31,6 +33,7 @@ const BookingActionsMenu = ({ booking }: { booking: Booking }) => {
     const buttonRef = useRef<HTMLButtonElement>(null)
     const menuRef = useRef<HTMLDivElement>(null)
     useClickOutside(menuRef, () => setOpen(false), open)
+    useEscapeKey(open, () => setOpen(false))
 
     const updateCoords = () => {
         if (!buttonRef.current) return
@@ -94,6 +97,20 @@ const BookingActionsMenu = ({ booking }: { booking: Booking }) => {
         setCancelOpen(true)
     }
 
+    const sendMessage = () => {
+        // Frontend stub — wire to messaging UI later.
+        // eslint-disable-next-line no-console
+        console.log('[stub] message guest', booking.guestEmail)
+        close()
+    }
+
+    const confirm = () => {
+        // Frontend stub — wire to API later.
+        // eslint-disable-next-line no-console
+        console.log('[stub] confirm booking', booking.id)
+        close()
+    }
+
     const isPast = booking.status === 'completed' || booking.status === 'cancelled'
 
     return (
@@ -106,6 +123,7 @@ const BookingActionsMenu = ({ booking }: { booking: Booking }) => {
                 aria-haspopup='menu'
                 aria-expanded={open}
                 aria-label={`Actions for ${booking.id}`}
+                title='More actions'
             >
                 <FiMoreVertical size={18} />
             </button>
@@ -143,6 +161,15 @@ const BookingActionsMenu = ({ booking }: { booking: Booking }) => {
                     <button
                         type='button'
                         role='menuitem'
+                        onClick={sendMessage}
+                        className='w-full flex items-center gap-3 px-4 py-2 text-sm text-ink-700 hover:bg-cream-100 transition-colors cursor-pointer'
+                    >
+                        <FiMessageSquare size={15} className='text-ink-500' />
+                        Send message
+                    </button>
+                    <button
+                        type='button'
+                        role='menuitem'
                         onClick={copyId}
                         className='w-full flex items-center gap-3 px-4 py-2 text-sm text-ink-700 hover:bg-cream-100 transition-colors cursor-pointer'
                     >
@@ -153,6 +180,20 @@ const BookingActionsMenu = ({ booking }: { booking: Booking }) => {
                         )}
                         {copied ? 'Copied!' : 'Copy booking ID'}
                     </button>
+
+                    {booking.status === 'pending' && (
+                        <div className='border-t border-cream-300 mt-1 pt-1'>
+                            <button
+                                type='button'
+                                role='menuitem'
+                                onClick={confirm}
+                                className='w-full flex items-center gap-3 px-4 py-2 text-sm text-emerald-900 hover:bg-emerald-50 transition-colors cursor-pointer'
+                            >
+                                <FiCheckCircle size={15} className='text-emerald-700' />
+                                Confirm booking
+                            </button>
+                        </div>
+                    )}
 
                     {!isPast && (
                         <div className='border-t border-cream-300 mt-1 pt-1'>

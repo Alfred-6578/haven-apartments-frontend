@@ -52,6 +52,7 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-lg' }: Prop
                         onClick={onClose}
                         className='w-9 h-9 rounded-full flex items-center justify-center text-ink-500 hover:text-ink-900 hover:bg-cream-100 transition-colors cursor-pointer'
                         aria-label='Close'
+                        title='Close'
                     >
                         <FiX size={20} />
                     </button>

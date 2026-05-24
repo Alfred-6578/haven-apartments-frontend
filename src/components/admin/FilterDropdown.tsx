@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react'
 import type { IconType } from 'react-icons'
 import { FiChevronDown, FiCheck } from 'react-icons/fi'
 import { useClickOutside } from '@/hooks/useClickOutside'
+import { useEscapeKey } from '@/hooks/useEscapeKey'
 
 interface Option {
     value: string
@@ -21,6 +22,7 @@ const FilterDropdown = ({ options, selected, onSelect, icon: Icon, prefix }: Pro
     const [open, setOpen] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
     useClickOutside(ref, () => setOpen(false), open)
+    useEscapeKey(open, () => setOpen(false))
 
     const current = options.find(o => o.value === selected) ?? options[0]
 

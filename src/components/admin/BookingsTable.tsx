@@ -48,7 +48,73 @@ const BookingsTable = ({ bookings, selectedIds, onToggleSelect, onToggleSelectAl
     const allSelected = bookings.length > 0 && bookings.every(b => selectedIds.has(b.id))
 
     return (
-        <div className='bg-cream-50 border border-cream-300 rounded-xl overflow-hidden'>
+        <>
+            {/* Mobile card list */}
+            <div className='md:hidden space-y-3'>
+                {bookings.map((b) => (
+                    <article
+                        key={b.id}
+                        onClick={() => router.push(`/admin/bookings/${b.id}`)}
+                        className='bg-cream-50 border border-cream-300 rounded-xl p-4 cursor-pointer hover:bg-cream-100 transition-colors'
+                    >
+                        <div className='flex items-start justify-between gap-3'>
+                            <div className='flex items-center gap-3 min-w-0 flex-1'>
+                                <div className='w-10 h-10 rounded-full bg-cream-200 border border-cream-300 text-ink-900 flex items-center justify-center text-xs font-medium shrink-0'>
+                                    {initialsOf(b.guestName)}
+                                </div>
+                                <div className='min-w-0'>
+                                    <p className='text-ink-900 font-medium leading-tight truncate'>
+                                        {b.guestName}
+                                    </p>
+                                    <p className='font-mono text-[11px] text-ink-500 truncate'>
+                                        {b.id}
+                                    </p>
+                                </div>
+                            </div>
+                            <div onClick={(e) => e.stopPropagation()} className='shrink-0'>
+                                <BookingActionsMenu booking={b} />
+                            </div>
+                        </div>
+
+                        <div className='mt-3 pt-3 border-t border-cream-300'>
+                            <p className='text-sm text-ink-700 truncate'>{b.propertyName}</p>
+                            <p className='text-xs text-ink-500 truncate'>{b.neighborhood}</p>
+                        </div>
+
+                        <div className='mt-3 grid grid-cols-3 gap-3 text-xs'>
+                            <div>
+                                <p className='text-ink-500 uppercase tracking-[0.1em] text-[10px]'>
+                                    Check-in
+                                </p>
+                                <p className='text-ink-900 mt-0.5'>
+                                    {format(b.checkIn, 'MMM d')}
+                                </p>
+                            </div>
+                            <div>
+                                <p className='text-ink-500 uppercase tracking-[0.1em] text-[10px]'>
+                                    Nights
+                                </p>
+                                <p className='text-ink-900 mt-0.5 tabular-nums'>{b.nights}</p>
+                            </div>
+                            <div className='text-right'>
+                                <p className='text-ink-500 uppercase tracking-[0.1em] text-[10px]'>
+                                    Amount
+                                </p>
+                                <p className='text-ink-900 font-medium mt-0.5 tabular-nums'>
+                                    ₦{b.totalAmount.toLocaleString()}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className='mt-3 pt-3 border-t border-cream-300'>
+                            <StatusPill status={b.status} />
+                        </div>
+                    </article>
+                ))}
+            </div>
+
+            {/* Desktop table */}
+            <div className='max-md:hidden bg-cream-50 border border-cream-300 rounded-xl overflow-hidden'>
             <div className='overflow-x-auto'>
                 <table className='w-full text-sm'>
                     <thead>
@@ -169,7 +235,8 @@ const BookingsTable = ({ bookings, selectedIds, onToggleSelect, onToggleSelectAl
                     </tbody>
                 </table>
             </div>
-        </div>
+            </div>
+        </>
     )
 }
 
