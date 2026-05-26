@@ -47,7 +47,7 @@ const Footer = () => {
                 <div className={visible ? 'footer-brand-reveal' : 'opacity-0'}>
                     <h3 className='font-heading text-2xl text-cream-50'>Haven Homes</h3>
                     <p className='text-cream-200/60 mt-3 max-w-sm text-sm leading-relaxed'>
-                        Twenty-six hand-picked homes across Lagos. Quietly chosen, warmly kept.
+                        Hand-picked homes. Quietly chosen, warmly kept.
                     </p>
                 </div>
 
@@ -163,7 +163,7 @@ const Footer = () => {
 
             {/* Bottom strip */}
             <div className={`px-5 tny:px-6 sm:px-8 lg:px-12 py-6 flex max-md:flex-col max-md:gap-4 justify-between items-center text-sm text-cream-200/50 ${visible ? 'footer-legal-reveal' : 'opacity-0'}`}>
-                <p>© {new Date().getFullYear()} Haven Homes — Made in Lagos.</p>
+                <p>© {new Date().getFullYear()} Haven Homes — Made in Nigeria.</p>
                 <div className='flex gap-6'>
                     <Link href='/privacy' className='hover:text-cream-100 transition-colors'>Privacy</Link>
                     <Link href='/terms' className='hover:text-cream-100 transition-colors'>Terms</Link>

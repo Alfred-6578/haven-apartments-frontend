@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import {
     FiHome,
     FiCalendar,
@@ -35,6 +36,7 @@ const extraBreadcrumbLabels: Record<string, string> = {
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
+    const router = useRouter()
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
     const menuRef = useRef<HTMLDivElement>(null)
@@ -43,15 +45,25 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     useEscapeKey(menuOpen, () => setMenuOpen(false))
     useEscapeKey(sidebarOpen, () => setSidebarOpen(false))
 
-    const currentPage = navItems.find(item => isActiveRoute(item.href, pathname))
-    const breadcrumbLabel =
-        currentPage?.label ?? extraBreadcrumbLabels[pathname] ?? 'Dashboard'
-
     // Close drawer + dropdown on route change
     useEffect(() => {
         setSidebarOpen(false)
         setMenuOpen(false)
     }, [pathname])
+
+    // Login page renders without the admin shell
+    if (pathname === '/admin/login') {
+        return <>{children}</>
+    }
+
+    const signOut = () => {
+        document.cookie = 'havenhomes_admin=; path=/; max-age=0'
+        router.push('/admin/login')
+    }
+
+    const currentPage = navItems.find(item => isActiveRoute(item.href, pathname))
+    const breadcrumbLabel =
+        currentPage?.label ?? extraBreadcrumbLabels[pathname] ?? 'Dashboard'
 
     return (
         <div className='min-h-screen bg-cream-50 w-screen overflow-hidden'>
@@ -107,14 +119,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         </ul>
                     </nav>
 
-                    <div className='p-3 border-t border-cream-300'>
+                    <div className='p-3 border-t border-cream-300 space-y-1'>
                         <Link
                             href='/'
-                            className='inline-flex items-center gap-2 px-3 py-2 text-sm text-ink-500 hover:text-ink-900 transition-colors'
+                            className='flex items-center gap-2 px-3 py-2 text-sm text-ink-500 hover:text-ink-900 transition-colors rounded-lg'
                         >
                             <FiArrowLeft size={16} />
                             Back to site
                         </Link>
+                        <button
+                            type='button'
+                            onClick={signOut}
+                            className='w-full flex items-center gap-2 px-3 py-2 text-sm text-ink-500 hover:text-error hover:bg-error/5 transition-colors rounded-lg cursor-pointer'
+                        >
+                            <FiLogOut size={16} />
+                            Sign out
+                        </button>
                     </div>
                 </div>
             </aside>

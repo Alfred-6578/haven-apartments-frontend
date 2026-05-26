@@ -160,7 +160,7 @@ export default function AdminPropertyDetailPage() {
                         Edit
                     </button>
                     <a
-                        href={`/stays/${property.id.replace(/^prop-/, '')}`}
+                        href={`/stays/${property.slug}`}
                         target='_blank'
                         rel='noopener noreferrer'
                         className='inline-flex items-center gap-1.5 text-sm text-ink-700 border border-cream-300 rounded-full px-4 py-2 hover:bg-cream-200 transition-colors cursor-pointer'

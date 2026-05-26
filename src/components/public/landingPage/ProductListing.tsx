@@ -14,8 +14,8 @@ const ProductListing = () => {
         <div className="flex max-md:flex-col justify-between  md:items-center mb-8 md:mb-16 gap-6">
             <div className="">
                 <span className={`block text-ink-500 text-sm ${visible ? 'product-eyebrow-reveal' : 'opacity-0'}`}>WHERE TO STAY</span>
-                <h2 className={`mb-3 mt-1 text-4xl sm:text-5xl  font-heading text-ink-900 ${visible ? 'product-headline-reveal' : 'opacity-0'}`}>Lagos, hand-picked.</h2>
-                <p className={`max-w-md ${visible ? 'product-body-reveal' : 'opacity-0'}`}>Twenty-six stays across the city's quieter corners. Each one chosen because we'd book it ourselves.</p>
+                <h2 className={`mb-3 mt-1 text-4xl sm:text-5xl  font-heading text-ink-900 ${visible ? 'product-headline-reveal' : 'opacity-0'}`}>Hand-picked stays.</h2>
+                <p className={`max-w-md ${visible ? 'product-body-reveal' : 'opacity-0'}`}>Hand-picked stays across the city's quieter corners. Each one chosen because we'd book it ourselves.</p>
             </div>
             <div className={`md:text-center ${visible ? 'product-cta-reveal' : 'opacity-0'}`}>
                 <Link

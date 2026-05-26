@@ -56,7 +56,7 @@ export default function AdminSettingsPage() {
         setTimeout(() => setSavedSection(null), 2000)
     }
 
-    const SavedLabel = ({ section }: { section: string }) =>
+    const renderSavedLabel = (section: string) =>
         savedSection === section ? (
             <span className='inline-flex items-center gap-1.5 text-sm text-emerald-700'>
                 <FiCheckCircle size={14} />
@@ -130,7 +130,7 @@ export default function AdminSettingsPage() {
                     />
                 </div>
                 <div className='flex items-center justify-end gap-3 pt-5 mt-5 border-t border-cream-300'>
-                    <SavedLabel section='notifications' />
+                    {renderSavedLabel('notifications')}
                     <button
                         type='button'
                         onClick={() => saveSection('notifications')}
@@ -173,7 +173,7 @@ export default function AdminSettingsPage() {
                     </label>
                 </div>
                 <div className='flex items-center justify-end gap-3 pt-5 mt-5 border-t border-cream-300'>
-                    <SavedLabel section='display' />
+                    {renderSavedLabel('display')}
                     <button
                         type='button'
                         onClick={() => saveSection('display')}

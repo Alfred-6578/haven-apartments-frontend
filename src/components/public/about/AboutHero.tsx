@@ -26,10 +26,10 @@ const AboutHero = () => {
                 Who we are
             </span>
             <h1 className='about-hero-headline-reveal font-heading text-[34px] xsm:text-4xl max-tny:leading-10 tny:text-[44px] md:text-6xl text-center font-semibold text-cream-50 max-w-3xl leading-[1.05]'>
-                Twenty-six choices. <em className='italic'>One</em> standard.
+                Every home. <em className='italic'>One</em> standard.
             </h1>
             <p className='about-hero-subtitle-reveal text-cream-200/75 text-s max-w-2xl text-center mt-6 leading-relaxed'>
-                Haven Homes is a small Lagos-grown company. We pick the apartments we'd book ourselves — then we make sure they actually deliver on the photos.
+                Haven Homes is a small Nigerian company. We pick the apartments we'd book ourselves — then we make sure they actually deliver on the photos.
             </p>
         </div>
     </section>

@@ -12,10 +12,10 @@ const Cta = () => {
                 Ready when you are
             </span>
             <h2 className={`font-heading text-4xl sm:text-5xl md:text-6xl text-ink-900 mt-4 mb-6 leading-[1.05] max-w-3xl mx-auto ${visible ? 'cta-headline-reveal' : 'opacity-0'}`}>
-                Find a <em className='italic'>quieter</em> Lagos.
+                Find a <em className='italic'>quieter</em> stay.
             </h2>
             <p className={`text-ink-700 text-lg leading-relaxed max-w-xl mx-auto mb-10 ${visible ? 'cta-body-reveal' : 'opacity-0'}`}>
-                Twenty-six hand-picked homes across the city. Booked tonight, ready tonight.
+                Hand-picked homes across the city. Booked tonight, ready tonight.
             </p>
             <Link
                 href='/stays'

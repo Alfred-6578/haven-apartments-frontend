@@ -11,9 +11,9 @@ const descriptionFor = (stay: ProductCardProps) => {
         Family: 'Built for kids underfoot and adults who need their own corner. Generous spaces, considered storage, the small details that matter by day three.',
         Boutique: 'Small, particular, ours. Hand-picked finishes and a host who answers when something matters.',
         Business: 'Wired for video calls and grown-up dinner reservations. Strong wifi, a real desk, blackout blinds.',
-        'City View': 'Lagos, framed. Floor-to-ceiling windows and a view that earns the rent.',
+        'City View': 'The city, framed. Floor-to-ceiling windows and a view that earns the rent.',
     }
-    return intros[stay.tag] || 'One of our twenty-six. Quietly chosen, warmly kept.'
+    return intros[stay.tag] || 'One of the collection. Quietly chosen, warmly kept.'
 }
 
 const StayHeader = ({ stay }: { stay: ProductCardProps }) => {

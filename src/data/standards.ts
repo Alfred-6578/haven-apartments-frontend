@@ -3,7 +3,7 @@ import { StandardsCardProps } from "@/types/standards";
 const standards: StandardsCardProps[] = [
   {
     tag: "Power",
-    title: "Lagos shouldn't decide your evening.",
+    title: "Power cuts shouldn't decide your evening.",
     description: "Inverter and generator in every home. Tested before every check-in. The lights stay on, the AC keeps running, your work doesn't pause.",
     image: "standard-power.jpeg",
   },

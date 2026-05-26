@@ -61,7 +61,7 @@ const StaysHero = ({arrivalDate, setArrivalDate, departureDate, setDepartureDate
         </div>
         <div className="relative w-full h-full flex flex-col items-center justify-center px-5 tny:px-6 sm:px-8 lg:px-12">
             <h1 className="hero-headline-reveal font-heading text-[32px] xsm:text-4xl max-tny:leading-10 tny:text-[40px] md:text-5xl text-center font-semibold text-white mt-3">
-                Twenty-six homes. <em className="italic">Quietly</em> chosen.
+                Every home, <em className="italic">quietly</em> chosen.
             </h1>
             <p className="hero-subtitle-reveal text-cream-200/70 text-s max-w-3xl text-center mt-4">
                 Each one picked because we'd book it ourselves — quiet streets, considered design, hosts who answer when something matters. Filter by neighborhood, choose by capacity, settle in tonight.

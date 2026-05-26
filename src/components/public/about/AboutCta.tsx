@@ -13,7 +13,7 @@ const AboutCta = () => {
             See the shortlist
         </span>
         <h2 className={`font-heading text-4xl sm:text-5xl md:text-6xl text-ink-900 mt-4 mb-6 leading-[1.05] max-w-3xl mx-auto ${visible ? 'cta-headline-reveal' : 'opacity-0'}`}>
-            Browse the <em className='italic'>twenty-six.</em>
+            Browse the <em className='italic'>collection.</em>
         </h2>
         <p className={`text-ink-700 text-lg leading-relaxed max-w-xl mx-auto mb-10 ${visible ? 'cta-body-reveal' : 'opacity-0'}`}>
             Every home in one place. Filter by neighborhood, capacity, or vibe — and book the one that feels right.

@@ -25,7 +25,7 @@ const OurStory = () => {
                     In 2023, a friend booked a Lekki shortlet from photos. The couch in the actual flat was cracked leather, not the linen one in the listing. The wifi was a phone hotspot. The host stopped replying at 11pm.
                 </p>
                 <p>
-                    We kept thinking — how is this normal? Lagos has beautiful homes. The pictures aren't the problem. The promise is.
+                    We kept thinking — how is this normal? Nigeria has beautiful homes. The pictures aren't the problem. The promise is.
                 </p>
                 <p>
                     So we started Haven Homes. We sleep in every home before listing it. We pick the host, not just the place. And we say no to most of what we see.

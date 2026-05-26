@@ -12,7 +12,7 @@ const principles = [
         body: 'A great home with a careless host is a bad stay. We meet hosts before we list anything, and we keep a list of who answers at midnight when it matters.',
     },
     {
-        title: 'We answer in Lagos hours.',
+        title: 'We answer fast.',
         body: 'WhatsApp from 8am to 10pm WAT, every day. Median first reply is under four hours. If your power goes out at 1am, message anyway.',
     },
     {

@@ -18,6 +18,7 @@ export interface Booking {
 
 export interface AdminProperty {
     id: string
+    slug: string
     name: string
     neighborhood: string
     bedrooms: number
@@ -34,6 +35,7 @@ export interface AdminProperty {
 export const adminProperties: AdminProperty[] = [
     {
         id: 'prop-sundry-house',
+        slug: 'sundry-house',
         name: 'Sundry House',
         neighborhood: 'Lekki Phase 1',
         bedrooms: 2,
@@ -48,6 +50,7 @@ export const adminProperties: AdminProperty[] = [
     },
     {
         id: 'prop-eko-brief',
+        slug: 'the-eko-brief',
         name: 'The Eko Brief',
         neighborhood: 'Eko Atlantic',
         bedrooms: 3,
@@ -62,6 +65,7 @@ export const adminProperties: AdminProperty[] = [
     },
     {
         id: 'prop-marina-loft',
+        slug: 'marina-loft',
         name: 'Marina Loft',
         neighborhood: 'Victoria Island',
         bedrooms: 1,
@@ -76,6 +80,7 @@ export const adminProperties: AdminProperty[] = [
     },
     {
         id: 'prop-palm-and-pine',
+        slug: 'palm-and-pine',
         name: 'Palm & Pine',
         neighborhood: 'Banana Island',
         bedrooms: 3,
@@ -90,6 +95,7 @@ export const adminProperties: AdminProperty[] = [
     },
     {
         id: 'prop-six-degrees',
+        slug: 'six-degrees',
         name: 'Six Degrees',
         neighborhood: 'Ikoyi',
         bedrooms: 1,
@@ -104,6 +110,7 @@ export const adminProperties: AdminProperty[] = [
     },
     {
         id: 'prop-dawn-house',
+        slug: 'the-dawn-house',
         name: 'The Dawn House',
         neighborhood: 'Lekki Phase 2',
         bedrooms: 2,

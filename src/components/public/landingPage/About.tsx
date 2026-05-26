@@ -27,7 +27,7 @@ const About = () => {
 
             {/* Body paragraph */}
             <p className={`text-ink-700 text-lg leading-relaxed lg:max-w-lg ${visible ? 'about-body-reveal' : 'opacity-0'}`}>
-                We pick the spaces we'd stay in ourselves — quiet streets, considered design, hosts who answer when something matters. Twenty-six homes across Lagos. All bookable tonight.
+                We pick the spaces we'd stay in ourselves — quiet streets, considered design, hosts who answer when something matters. Twenty-six homes, hand-picked. All bookable tonight.
             </p>
 
             {/* Pill CTA */}

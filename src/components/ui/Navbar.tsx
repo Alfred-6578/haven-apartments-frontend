@@ -65,8 +65,8 @@ const Navbar = () => {
             </Link>
             <div className="flex gap-6 text-l max-md:hidden nav-mid-reveal">
                 <Link className='' href="/">Home</Link>
-                <Link className='' href="/about">About </Link>
                 <Link className='' href="/stays">Stays</Link>
+                <Link className='' href="/about">About </Link>
                 <Link className='' href="/contact">Contact</Link>
             </div>
             <button className="bg-emerald-700 max-md:hidden font-semibold rounded-md px-6 py-2.5 text-cream-200 font-medium hover:bg-cream-300 hover:border-cream-300 hover:text-ink-500 cursor-pointer transition-colors duration-300 nav-cta-reveal">
@@ -86,11 +86,12 @@ const Navbar = () => {
                 <Link className='border-b-[0.5px] border-ink-300 py-5 px-6 sm:px-8' href="/">
                     Home
                 </Link>
-                <Link className='border-b-[0.5px] border-ink-300 py-5 px-6 sm:px-8' href="/about">
-                    About 
-                </Link>
+                
                 <Link className='border-b-[0.5px] border-ink-300 py-5 px-6 sm:px-8' href="/stays">
                     Stays
+                </Link>
+                <Link className='border-b-[0.5px] border-ink-300 py-5 px-6 sm:px-8' href="/about">
+                    About 
                 </Link>
                 <Link className='py-5 px-6 sm:px-8' href="/contact">
                     Contact

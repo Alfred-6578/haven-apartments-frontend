@@ -58,7 +58,7 @@ const Hero = () => {
                     <span className="block hero-headline-reveal">Stay where</span>
                     <span className="block hero-headline-line-2-reveal">the city softens.</span>
                 </h1>
-                <p className="tny:text-lg text-cream-100 opacity-70 max-w-2xl hero-subtitle-reveal">Premium short stays across Lagos. Booked tonight, ready tonight</p>
+                <p className="tny:text-lg text-cream-100 opacity-70 max-w-2xl hero-subtitle-reveal">Premium short stays, hand-picked. Booked tonight, ready tonight</p>
 
                 {/* Mobile compact trigger */}
                 <button

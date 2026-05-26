@@ -97,8 +97,7 @@ const PropertyActionsMenu = ({ property }: { property: AdminProperty }) => {
     }
 
     const viewPublic = () => {
-        const slug = property.id.replace(/^prop-/, '')
-        window.open(`/stays/${slug}`, '_blank', 'noopener,noreferrer')
+        window.open(`/stays/${property.slug}`, '_blank', 'noopener,noreferrer')
         close()
     }
 
